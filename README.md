@@ -1,68 +1,71 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Idea
 
-## Available Scripts
+- To make those racing cars bar-chart of youtube that people make to earn money in excel or tabuleau, but we are goiing to make it using code!!
+- Much thanks to https://observablehq.com/@d3/bar-chart-race
 
-In the project directory, you can run:
+- Goal In Mind
+- Find the most productive week day of your github from the day a person joined the github
 
-### `yarn start`
+* Tech Stack
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+  - React
+  - D3.js (v5)
+  - Dataset year wise
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+    - we have a year wise list of things
+    - for each year we have several list of things, with a property that will help in showing the rank of that thing in that year.
 
-### `yarn test`
+* My Dataset
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+  - will be using cherrio to fetch the data of day wise contribution-count from the github page
+  - Not using github api to fetch users data
 
-### `yarn build`
+### STEPS:
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Get the user data to get the joining date
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+  1. Get User info + scrapUrls
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+  - [x] https://api.github.com/users/jugshaurya: (get user joined year)
+  - [x] get the year of joining from this let say `yyyy`
+  - [x] calculate the diff of yyyy and today year let day `d`
 
-### `yarn eject`
+  2. Dates are something weird while fetching svg of user contribution for github main page
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+  - [x] Generate the urls in an array to do scrapping later on over each url
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+    - https://github.com/users/jugshaurya/contributions?from=`yyyy`-12-01&to=``yyyy``-12-31
+    - this will give result from `yyyy-1`-12-31 to `yyyy`-12-31
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+    ```
+    https://github.com/users/jugshaurya/contributions?from=`yyyy+i`-12-01&to=`yyyy+i`-12-31
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+    ... for i = 0 to i<=d
+    ```
 
-## Learn More
+3. generate the dataset from scrapUrls after step 2
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- [x] Retrieve the rect tag elements and get date-count and data-date values
+- [x] Create a dataset around it and return to front end
+- [x] Done!
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+4. Plot the Result as race bar graph to see the most productive Week Day
 
-### Code Splitting
+- generated a random dataset using utils/generateRandomData.js file check it out !!
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+### What is D3 ?
 
-### Analyzing the Bundle Size
+- D3 stands for Data-Driven Documents and is widely used to create interactive data visualizations on the web.
+- The way most people use D3 with React is to use React to build the structure of the application, and to render traditional HTML elements, and then when it comes to the data visualization section, they pass a DOM container (typically an <svg> ) over to D3 and use D3 to create and destroy and update elements.
+  -D3 helps you bring data to life using SVG, Canvas and HTML. D3 combines powerful visualization and interaction techniques with a data-driven approach to DOM manipulation, giving you the full capabilities of modern browsers and the freedom to design the right visual interface for your data.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+## Thank you
 
-### Making a Progressive Web App
+- https://github.com/cheeriojs/cheerio
+- https://www.sitepoint.com/best-javascript-charting-libraries/
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+  - d3 won , thnks to first comment :)
 
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+- https://github.com/d3/d3
+- https://observablehq.com/@d3/bar-chart-race
+- Github Scarping Policy ( https://help.github.com/en/github/site-policy/github-acceptable-use-policies#5-scraping-and-api-usage-restrictions)
