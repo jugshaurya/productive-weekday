@@ -2,6 +2,8 @@
 
 - To make those racing cars bar-chart of youtube that people make to earn money in excel or tabuleau, but we are goiing to make it using code!!
 - Much thanks to https://observablehq.com/@d3/bar-chart-race
+  https://observablehq.com/@d3/bar-chart-race-explained
+  https://observablehq.com/@johnburnmurdoch/bar-chart-race
 
 - Goal In Mind
 - Find the most productive week day of your github from the day a person joined the github
@@ -39,7 +41,6 @@
 
     ```
     https://github.com/users/jugshaurya/contributions?from=`yyyy+i`-12-01&to=`yyyy+i`-12-31
-
     ... for i = 0 to i<=d
     ```
 

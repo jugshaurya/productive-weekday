@@ -1,11 +1,25 @@
 .App {
   text-align: center;
+  min-height: 100vh;
+  font-size: calc(10px + 2vmin);
+  background-color: #282c34;
 }
 
 .App-header {
   padding-top: 50px;
-  background-color: #282c34;
-  min-height: 100vh;
-  font-size: calc(10px + 2vmin);
   color: white;
+}
+
+input {
+  height: 1.5rem;
+  font-size: 1.2rem;
+  padding: 8px;
+}
+
+button {
+  margin-left: 10px;
+  border-radius: 3px;
+  font-size: 1.2rem;
+  padding: 5px;
+  background-color: #22d1ee;
 }
