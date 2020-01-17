@@ -16,14 +16,19 @@ app.use(express.json());
 // Utils function
 const getUserInfo = require("./utils/getuserInfo");
 const generateUserContributionDataset = require("./utils/generateUserContributionDataset");
-app.get("/user/:user", async (req, res, next) => {
-  // 1. fetch the user created year, name, avatar_url
-  const { user } = req.params;
-  const userInfo = await getUserInfo(user, next);
 
-  // 2. Generate User Dataset
-  const dataset = await generateUserContributionDataset(userInfo, next);
-  res.status(200).json({ userInfo, dataset: dataset || {} });
+app.get("/user/:user", async (req, res, next) => {
+  try {
+    // 1. fetch the user created year, name, avatar_url
+    const { user } = req.params;
+    const userInfo = await getUserInfo(user, next);
+
+    // 2. Generate User Dataset
+    const dataset = await generateUserContributionDataset(userInfo, next);
+    res.status(200).json({ userInfo, dataset: dataset || {} });
+  } catch (error) {
+    next(error);
+  }
 });
 
 // Handling unwanted routes
@@ -37,15 +42,13 @@ app.use((req, res, next) => {
 app.use((error, req, res, next) => {
   console.error(error.stack);
   const status = error.status || 500;
-  res.status = status;
+  res.status(status);
   res.send({
     error: {
       status: status,
       message: error.message || "Internal Server Error"
     }
   });
-
-  res.status(500).json({ message: "Server Error!" });
 });
 
 const PORT = process.env.PORT || 8080;

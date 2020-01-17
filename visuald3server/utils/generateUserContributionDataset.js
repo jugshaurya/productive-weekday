@@ -53,38 +53,33 @@ const getInfoRects = html => {
   return filteredData;
 };
 
-const generateUserContributionDataset = async (user, next) => {
+const generateUserContributionDataset = async user => {
   const joinedYear = user.joinedYear;
   const joinedDate = user.joinedDate;
   const urls = getScrapUrls(joinedYear);
-  try {
-    const responses = await Promise.all(urls.map(url => fetch(url)));
-    const htmls = await Promise.all(responses.map(response => response.text()));
-    const datesWithCountAndDayObj = htmls.reduce((acc, html) => {
-      const arrayOfCountAndDateObjects = getInfoRects(html);
-      arrayOfCountAndDateObjects.map(
-        // that way duplicates will not be there in data: Data Cleaning :)
-        item => (acc[item["date"]] = { count: item["count"], day: item["day"] })
-      );
-
-      return acc;
-    }, {});
-
-    // returing the results from joined date till today
-    const filteredKeys = Object.keys(datesWithCountAndDayObj).filter(
-      obj =>
-        new Date(obj) >= new Date(joinedDate) && new Date(obj) <= new Date()
+  const responses = await Promise.all(urls.map(url => fetch(url)));
+  const htmls = await Promise.all(responses.map(response => response.text()));
+  const datesWithCountAndDayObj = htmls.reduce((acc, html) => {
+    const arrayOfCountAndDateObjects = getInfoRects(html);
+    arrayOfCountAndDateObjects.map(
+      // that way duplicates will not be there in data: Data Cleaning :)
+      item => (acc[item["date"]] = { count: item["count"], day: item["day"] })
     );
 
-    const dataset = filteredKeys.reduce((acc, key) => {
-      acc[key] = datesWithCountAndDayObj[key];
-      return acc;
-    }, {});
+    return acc;
+  }, {});
 
-    return dataset;
-  } catch (error) {
-    next(error);
-  }
+  // returing the results from joined date till today
+  const filteredKeys = Object.keys(datesWithCountAndDayObj).filter(
+    obj => new Date(obj) >= new Date(joinedDate) && new Date(obj) <= new Date()
+  );
+
+  const dataset = filteredKeys.reduce((acc, key) => {
+    acc[key] = datesWithCountAndDayObj[key];
+    return acc;
+  }, {});
+
+  return dataset;
 };
 
 module.exports = generateUserContributionDataset;
