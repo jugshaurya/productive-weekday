@@ -1,72 +1,49 @@
 const fs = require("fs");
 
-const firstName = [
-  "Angora",
-  "Satin",
-  "Baft",
-  "Baldachin",
-  "Batiste",
-  "Corduroy",
-  "Crinoline",
-  "Cotton",
-  "Linen",
-  "Thread",
-  "Damask",
-  "Fabric",
-  "Pattern",
-  "Denim",
-  "blue",
-  "Dungarees",
-  "Flannel",
-  "Wool",
-  "Milled",
-  "Gabardine"
-];
-
-const secondName = [
-  "jacquard",
-  "loom",
-  "glossy",
-  "rubber",
-  "mohair",
-  "yarn",
-  "moleskin",
-  "surface",
-  "weave",
-  "stiff",
-  "organza",
-  "sateen",
-  "tweed",
-  "fleck",
-  "velvet",
-  "short",
-  "venise",
-  "lace",
-  "chiffon",
-  "nylon"
-];
-
-const getName = i => {
-  return firstName[i] + " " + secondName[i];
+const getRandomCount = () => {
+  return Math.round(Math.random() * 100);
 };
 
-const getProductsWithNameAndRank = () => {
-  const result = [];
-  for (let i = 0; i < firstName.length; i++) {
-    result.push({
-      product: getName(i),
-      rank: Math.round(Math.random() * 1000)
-    });
+const getDay = i => {
+  const day = i % 7;
+  switch (day) {
+    case 0:
+      return "Sunday";
+    case 1:
+      return "Monday";
+    case 2:
+      return "Tuesday";
+    case 3:
+      return "Wednesday";
+    case 4:
+      return "Thursday";
+    case 5:
+      return "Friday";
+    case 6:
+      return "Saturday";
   }
+};
 
+const START_DATE = new Date("2018-06-01");
+const getDate = i => {
+  const date = new Date(new Date().setDate(START_DATE.getDate() + i));
+
+  return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+};
+
+const getDatewithObj = i => {
+  const result = {};
+
+  result["date"] = getDate(i);
+  result["day"] = getDay(i);
+  result["count"] = getRandomCount();
   return result;
 };
 
 const generateDataset = () => {
-  const dataset = {};
-  // Year ranges b/w 1990- 2020
-  for (let i = 1990; i <= 2020; i++) {
-    dataset[i] = getProductsWithNameAndRank();
+  const dataset = [];
+  for (let i = 0; i < 100; i++) {
+    dataset[i] = getDatewithObj(i);
   }
 
   return dataset;

@@ -52,7 +52,7 @@ class App extends React.Component {
         <header className="App-header">
           <h1> Visualize the Dataset </h1>
 
-          <form onSubmit={this.handleFetchingUserDataset}>
+          {/* <form onSubmit={this.handleFetchingUserDataset}>
             <input
               onChange={this.handleChange}
               type="text"
@@ -60,11 +60,11 @@ class App extends React.Component {
               value={this.state.username}
             />
             <button type="submit">Fetch</button>
-          </form>
+          </form> */}
 
-          {this.state.dataset && (
-            <ShowRacebarGraph dataset={this.state.dataset} />
-          )}
+          {/* {this.state.dataset && ( */}
+          <ShowRacebarGraph dataset={this.state.dataset} />
+          {/* )} */}
         </header>
       </div>
     );

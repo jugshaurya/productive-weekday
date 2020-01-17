@@ -75,9 +75,10 @@ const generateUserContributionDataset = async user => {
   );
 
   const dataset = filteredKeys.reduce((acc, key) => {
-    acc[key] = datesWithCountAndDayObj[key];
+    const { count, day } = datesWithCountAndDayObj[key];
+    acc.push({ date: key, day, contribCount: count });
     return acc;
-  }, {});
+  }, []);
 
   return dataset;
 };

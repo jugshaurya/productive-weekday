@@ -70,3 +70,8 @@
 - https://github.com/d3/d3
 - https://observablehq.com/@d3/bar-chart-race
 - Github Scarping Policy ( https://help.github.com/en/github/site-policy/github-acceptable-use-policies#5-scraping-and-api-usage-restrictions)
+- https://www.tutorialsteacher.com/d3js/create-bar-chart-using-d3js
+
+## D3 doc help
+
+-https://devdocs.io/d3~5/d3-scale#scaleBand

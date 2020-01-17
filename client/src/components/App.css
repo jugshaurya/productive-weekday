@@ -1,8 +1,8 @@
 .App {
-  text-align: center;
+  /* text-align: center; */
   min-height: 100vh;
   font-size: calc(10px + 2vmin);
-  background-color: #282c34;
+  background-color: #071e3d;
 }
 
 .App-header {
@@ -21,5 +21,5 @@ button {
   border-radius: 3px;
   font-size: 1.2rem;
   padding: 5px;
-  background-color: #22d1ee;
+  background-color: #278ea5;
 }
