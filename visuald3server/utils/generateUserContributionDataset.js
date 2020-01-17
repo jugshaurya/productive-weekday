@@ -59,6 +59,7 @@ const generateUserContributionDataset = async user => {
   const urls = getScrapUrls(joinedYear);
   const responses = await Promise.all(urls.map(url => fetch(url)));
   const htmls = await Promise.all(responses.map(response => response.text()));
+
   const datesWithCountAndDayObj = htmls.reduce((acc, html) => {
     const arrayOfCountAndDateObjects = getInfoRects(html);
     arrayOfCountAndDateObjects.map(
@@ -74,13 +75,23 @@ const generateUserContributionDataset = async user => {
     obj => new Date(obj) >= new Date(joinedDate) && new Date(obj) <= new Date()
   );
 
-  const dataset = filteredKeys.reduce((acc, key) => {
+  const dayWiseDataset = filteredKeys.reduce((acc, key) => {
     const { count, day } = datesWithCountAndDayObj[key];
     acc.push({ date: key, day, contribCount: count });
     return acc;
   }, []);
 
-  return dataset;
+  let week_number = 0;
+  let weekWiseDataset = {};
+  dayWiseDataset.map((data, i) => {
+    if (i % 7 === 0) {
+      week_number++;
+      weekWiseDataset[`week-${week_number}`] = [];
+    }
+    weekWiseDataset[`week-${week_number}`].push(data);
+  });
+
+  return weekWiseDataset;
 };
 
 module.exports = generateUserContributionDataset;
