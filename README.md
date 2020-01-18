@@ -52,12 +52,12 @@
 
 4. Plot the Result as race bar graph to see the most productive Week Day
 
-- [x] Generate fake data (done using src/utils/gerateRandomData.js)
-- [x] Plot Bar graph for one week first
-- [x] plot the bar graph for every week every `s` number of seconds
-- [ ] new weekly data will be containing the sum of counts of days from week-1 to week-z; where z is current week pltot number
-
-- generated a random dataset using utils/generateRandomData.js file check it out !!
+- [x] Generate fake data (done using src/utils/gerateRandomData.js) and then :
+  - [x] Plot Bar graph for one week first
+  - [x] plot the bar graph for every week every `s` number of seconds; s=1000
+  - [x] new weekly data will be containing the sum of counts of days from week-1 to week-z; where z is current week pltot number
+  - [x] Arrange the bars in descending order to arrange the max value bar at the top and min at the bottom
+  - [x] Smooth the y-position-change, count update, barwidth update.
 
 ### What is D3 ?
 

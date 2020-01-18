@@ -38,7 +38,7 @@ class ShowRacebarGraph extends Component {
           clearInterval(this.intervalId);
         }
       }
-    }, 500);
+    }, 1000);
   }
 
   addContribCounts = (prevData, newData) => {
@@ -65,9 +65,15 @@ class ShowRacebarGraph extends Component {
     const { weekData } = this.state;
     const { parentHeight, parentWidth } = this.state;
 
+    const sortedWeekData = weekData.sort((x, y) => {
+      if (x.count < y.count) return 1;
+      if (x.count > y.count) return -1;
+      return 0;
+    });
+
     const yAxis = d3
       .scaleBand()
-      .domain(weekData.map(data => data.day))
+      .domain(sortedWeekData.map(data => data.day))
       .range([0, parentHeight])
       .padding(0.4);
 
@@ -88,7 +94,7 @@ class ShowRacebarGraph extends Component {
       <>
         <svg>
           {/* Change weekdata every `s` seconds */}
-          {weekData.map(data => (
+          {sortedWeekData.map(data => (
             <SingleBar
               key={data.day}
               data={data}
