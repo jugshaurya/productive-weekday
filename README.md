@@ -52,8 +52,10 @@
 
 4. Plot the Result as race bar graph to see the most productive Week Day
 
-- [ ] Generate fake data (done using src/utils/gerateRandomData.js)
-- [ ] Plot Bar graph for one week first
+- [x] Generate fake data (done using src/utils/gerateRandomData.js)
+- [x] Plot Bar graph for one week first
+- [x] plot the bar graph for every week every `s` number of seconds
+- [ ] new weekly data will be containing the sum of counts of days from week-1 to week-z; where z is current week pltot number
 
 - generated a random dataset using utils/generateRandomData.js file check it out !!
 
@@ -62,6 +64,10 @@
 - D3 stands for Data-Driven Documents and is widely used to create interactive data visualizations on the web.
 - The way most people use D3 with React is to use React to build the structure of the application, and to render traditional HTML elements, and then when it comes to the data visualization section, they pass a DOM container (typically an <svg> ) over to D3 and use D3 to create and destroy and update elements.
   -D3 helps you bring data to life using SVG, Canvas and HTML. D3 combines powerful visualization and interaction techniques with a data-driven approach to DOM manipulation, giving you the full capabilities of modern browsers and the freedom to design the right visual interface for your data.
+
+### Inbetweening or tweening
+
+- is a key process in all types of animation, including computer animation. It is the process of generating intermediate frames between two images, called key frames, to give the appearance that the first image evolves smoothly into the second image.
 
 ## Thank you
 

@@ -50,7 +50,7 @@ const getWeekArray = i => {
 const generateDataset = () => {
   const dataset = {};
 
-  for (let i = 0; i < 86; i++) {
+  for (let i = 0; i < 10; i++) {
     dataset[`week-${i + 1}`] = getWeekArray(i);
   }
 
