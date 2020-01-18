@@ -5,5 +5,13 @@ svg {
 }
 
 g {
+  border: 3px solid green;
+}
+
+rect {
   border: 3px solid brown;
+}
+
+text {
+  font-size: 0.6em;
 }

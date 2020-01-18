@@ -8,19 +8,19 @@ const getDay = i => {
   const day = i % 7;
   switch (day) {
     case 0:
-      return "Sunday";
+      return "Sun";
     case 1:
-      return "Monday";
+      return "Mon";
     case 2:
-      return "Tuesday";
+      return "Tue";
     case 3:
-      return "Wednesday";
+      return "Wed";
     case 4:
-      return "Thursday";
+      return "Thur";
     case 5:
-      return "Friday";
+      return "Fri";
     case 6:
-      return "Saturday";
+      return "Sat";
   }
 };
 
@@ -33,17 +33,25 @@ const getDate = i => {
 
 const getDatewithObj = i => {
   const result = {};
-
   result["date"] = getDate(i);
   result["day"] = getDay(i);
   result["count"] = getRandomCount();
   return result;
 };
 
+const getWeekArray = i => {
+  const result = [];
+  for (let j = 0; j < 7; j++) {
+    result.push(getDatewithObj(i * 7 + j));
+  }
+  return result;
+};
+
 const generateDataset = () => {
-  const dataset = [];
-  for (let i = 0; i < 100; i++) {
-    dataset[i] = getDatewithObj(i);
+  const dataset = {};
+
+  for (let i = 0; i < 86; i++) {
+    dataset[`week-${i + 1}`] = getWeekArray(i);
   }
 
   return dataset;

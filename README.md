@@ -52,6 +52,9 @@
 
 4. Plot the Result as race bar graph to see the most productive Week Day
 
+- [ ] Generate fake data (done using src/utils/gerateRandomData.js)
+- [ ] Plot Bar graph for one week first
+
 - generated a random dataset using utils/generateRandomData.js file check it out !!
 
 ### What is D3 ?
@@ -72,6 +75,9 @@
 - Github Scarping Policy ( https://help.github.com/en/github/site-policy/github-acceptable-use-policies#5-scraping-and-api-usage-restrictions)
 - https://www.tutorialsteacher.com/d3js/create-bar-chart-using-d3js
 
-## D3 doc help
+## D3 help
 
--https://devdocs.io/d3~5/d3-scale#scaleBand
+- https://devdocs.io/d3~5/d3-scale#scaleBand
+- https://github.com/d3/d3-scale/blob/master/README.md
+- https://www.tutorialsteacher.com/d3js/create-svg-chart-in-d3js
+- https://www.tutorialsteacher.com/d3js/scales-in-d3
