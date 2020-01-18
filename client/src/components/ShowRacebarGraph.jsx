@@ -5,7 +5,6 @@ import DATASET from "../assets/dataset";
 import "./ShowRacebarGraph.styles.css";
 
 const Bar = ({ data, barWidth, barHeight, y }) => {
-  console.log(y, barWidth);
   return (
     <g transform={`translate(0, ${y})`}>
       <rect width={barWidth} height={barHeight} fill="#278ea5" />
@@ -19,21 +18,43 @@ const Bar = ({ data, barWidth, barHeight, y }) => {
 class ShowRacebarGraph extends Component {
   state = {
     parentHeight: 400,
-    parentWidth: 600
+    parentWidth: 600,
+    week_number: 0,
+    weekData: []
   };
+
+  componentDidMount() {
+    this.intervalId = setInterval(() => {
+      console.log("running evry 1 sec");
+      this.setState(prevState => {
+        return {
+          week_number: prevState.week_number + 1,
+          weekData: DATASET[`week-${prevState.week_number + 1}`]
+        };
+      });
+      if (this.state.week_number > Object.keys(DATASET).length - 1) {
+        clearInterval(this.intervalId);
+      }
+    }, 1000);
+  }
+
+  componentWillUnmount() {
+    console.log("cleared", this.intervalId);
+    clearInterval(this.intervalId);
+  }
 
   render() {
     // const { dataset, userInfo } = this.props.dataset;
-    const tempDataset = DATASET;
     // const number_of_weeks = Object.keys(tempDataset).length;
-    const week1Data = tempDataset["week-1"];
-    console.log(week1Data);
+    // const weekData = this.state.tempDataset["week-1"];
+    // console.log(weekData);
 
+    const { weekData } = this.state;
     const { parentHeight, parentWidth } = this.state;
 
     const yAxis = d3
       .scaleBand()
-      .domain(week1Data.map(data => data.day))
+      .domain(weekData.map(data => data.day))
       .range([0, parentHeight])
       .padding(0.4);
 
@@ -43,21 +64,23 @@ class ShowRacebarGraph extends Component {
     // https://github.com/d3/d3-scale/blob/master/README.md#continuous-scales
     const xAxis = d3
       .scaleLinear()
-      .domain([0, d3.max(week1Data, data => data.count)])
+      .domain([0, d3.max(weekData, data => data.count)])
       .range([0, parentWidth - 50]);
 
     return (
       <>
         <svg>
-          {week1Data.map(data => (
-            <Bar
-              key={data.date}
-              data={data}
-              y={yAxis(data.day)}
-              barWidth={xAxis(data.count)}
-              barHeight={yAxis.bandwidth()}
-            />
-          ))}
+          {/* Change weekdata every `s` seconds */}
+          {weekData &&
+            weekData.map(data => (
+              <Bar
+                key={data.date}
+                data={data}
+                y={yAxis(data.day)}
+                barWidth={xAxis(data.count)}
+                barHeight={yAxis.bandwidth()}
+              />
+            ))}
         </svg>
       </>
     );
