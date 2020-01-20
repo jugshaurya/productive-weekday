@@ -185,10 +185,10 @@ class ShowRacebarGraph extends Component {
               />
             ))}
             <g className="week-number">
-              <text x={svgWidth - 130} y={svgHeight - 60}>
+              <text x={svgWidth - 110} y={svgHeight - 60}>
                 week-{week_number}
               </text>
-              <text className="date" x={svgWidth - 130} y={svgHeight - 30}>
+              <text className="date" x={svgWidth - 110} y={svgHeight - 30}>
                 {dataset[`week-${week_number + 1}`]
                   ? dataset[`week-${week_number + 1}`][6].date
                   : dataset[`week-${week_number}`][6].date}
@@ -198,13 +198,15 @@ class ShowRacebarGraph extends Component {
         </article>
 
         <article className="who-won">
-          <div className="user-info">
-            <img src={userInfo.avatar_url} alt="username" />
-            {userInfo.github_username}
-          </div>
+          {userInfo.avatar_url ? (
+            <div className="user-info">
+              <img src={userInfo.avatar_url} alt="username" />
+              {userInfo.github_username}
+            </div>
+          ) : null}
           <div>
             <h4>
-              Productive Weekday:{" "}
+              Most Productive Weekday:{" "}
               <span className="won-day">
                 {weekData.length === 0 ? "Sun" : weekData[0].day}{" "}
               </span>

@@ -6,6 +6,8 @@
   width: 100vw;
   overflow: hidden;
   margin: 0 auto;
+  background: rgb(39, 142, 165, 0.2) url("../assets/background.svg") repeat-x
+    center bottom;
   box-sizing: border-box;
 }
 
@@ -78,8 +80,8 @@ button {
 main {
   position: relative;
   /* border: 3px solid sandybrown; */
-  height: 46vh;
-  background: #f0f0f0;
+  height: 49vh;
+  /* background: #f0f0f0; */
 }
 
 section {
@@ -87,8 +89,9 @@ section {
   height: 40vh;
   width: 90vw;
   left: 5vw;
+  background: rgb(39, 142, 165, 0.8);
   padding: 2px;
-  background: #278ea5;
+
   top: -13vh;
   border-radius: 10px;
   z-index: 100;
@@ -100,7 +103,6 @@ h3.svg-label {
   background: #fc5185;
   padding: 2px 10px;
   position: absolute;
-
   top: -35px;
   display: inline-block;
 }
@@ -110,7 +112,9 @@ h3.svg-label {
   height: 94%;
   width: 96%;
   margin: 0 auto;
+  background: rgb(39, 142, 165, 0.8);
   padding-top: 1%;
+  border-radius: 10px;
 }
 
 .race-bar-graph svg {
@@ -131,12 +135,16 @@ h3.svg-label {
   font-weight: bolder;
 }
 
+.week-number text {
+  padding: 10px;
+}
+
 .week-number .date {
   font-size: 1rem;
 }
 
 .user-info {
-  color: #278ea5;
+  color: #1f2833;
   font-size: 1.2em;
 }
 
@@ -149,7 +157,7 @@ h3.svg-label {
 .who-won {
   color: #1f2833;
   text-align: center;
-  margin-top: 5vh;
+  margin-top: 3vh;
   display: flex;
   justify-content: space-evenly;
 }
@@ -157,11 +165,13 @@ h3.svg-label {
 .who-won h4 {
   margin-bottom: 10px;
   text-align: center;
+  font-size: 1.1em;
 }
 
 .won-day {
-  font-weight: 500;
-  font-size: 1.3em;
+  font-size: 1.5em;
+  font-weight: 700;
+  text-decoration: underline;
   color: #fc5185;
 }
 
@@ -194,11 +204,8 @@ text {
 }
 
 @media (min-width: 720px) and (max-width: 968px) {
-  .App {
-    background: #278ea5;
-  }
   .App-header {
-    width: 90vw;
+    /* width: 90vw; */
     margin: 0 auto;
     min-height: 55vh;
   }
@@ -226,12 +233,8 @@ text {
 }
 
 @media (min-width: 968px) {
-  .App {
-    background: #278ea5;
-  }
-
   .App-header {
-    width: 80vw;
+    /* width: 80vw; */
     margin: 0 auto;
     min-height: 55vh;
   }
@@ -242,7 +245,10 @@ text {
 
   main {
     min-height: 45vh;
-    /* margin: 0 auto; */
+    width: 80vw;
+    padding: 10px;
+
+    margin: 0 auto;
   }
 
   h3.svg-label {

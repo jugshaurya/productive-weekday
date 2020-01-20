@@ -65,6 +65,9 @@
   - [x] show ticks on x and y axis/ Show Grid
   - [x] Render Random Data for visuals
   - [x] Show user info somewhere
+  - [x] Display the error toast (#issue2)
+
+- 5. Deploy
 
 ### What is D3 ?
 
@@ -99,3 +102,10 @@
 
 - https://codepen.io/nxworld/pen/oLdoWb
 - https://undraw.co/illustrations
+- https://favicon.io/favicon-converter/
+
+## Result:
+
+![](app.gif)
+
+<!-- ![](https://github.com/jugshaurya/productive-weekday/blob/master/app.gif) -->

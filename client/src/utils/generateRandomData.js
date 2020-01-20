@@ -59,7 +59,7 @@ const generateDataset = () => {
 
 const generateRandomUser = () => {
   return {
-    avatar_url: "https://i.pravatar.cc/300",
+    avatar_url: null,
     name: null,
     github_username: null,
     joinedYear: "2019",

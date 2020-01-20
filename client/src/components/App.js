@@ -1,15 +1,18 @@
 import React from "react";
-import "./App.css";
-import "./ribbon.styles.css";
+
 import DATASET from "../assets/dataset";
 import ShowRacebarGraph from "./ShowRacebarGraph";
+
+import "./App.css";
+import "./toast.css";
+import "./ribbon.css";
 import { ReactComponent as MainSVG } from "../assets/main.svg";
 import { ReactComponent as LoadingSVG } from "../assets/loadingicon.svg";
+
 class App extends React.Component {
   state = {
     username: "",
     dataset: DATASET,
-    // dataset: DATASET,
     fetchingError: null,
     isFetching: false,
     replayKey: true
@@ -64,8 +67,25 @@ class App extends React.Component {
       replayKey
     } = this.state;
 
+    if (fetchingError) {
+      setTimeout(() => {
+        this.setState({
+          username: "",
+          dataset: DATASET,
+          fetchingError: null,
+          isFetching: false,
+          replayKey: true
+        });
+      }, 2000);
+    }
+
     return (
       <div className="App">
+        {fetchingError && (
+          <div id="toast" className={fetchingError.message ? "show" : null}>
+            {fetchingError.status} {fetchingError.message}
+          </div>
+        )}
         <header className="App-header">
           <div className="ribbon ribbon-top-left">
             <span>Made by Shaurya</span>
