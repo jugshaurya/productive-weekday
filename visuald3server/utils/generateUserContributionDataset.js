@@ -43,7 +43,7 @@ const getInfoRects = html => {
 
   let filteredData = [];
   $("rect").each((i, elem) => {
-    const count = elem.attribs["data-count"];
+    const count = Number(elem.attribs["data-count"]);
     const date = elem.attribs["data-date"];
     // Github is returing the data starting from sunday only so just required to take the mod
     const day = getDay(i);
@@ -82,14 +82,17 @@ const generateUserContributionDataset = async user => {
   }, []);
 
   let week_number = 0;
-  let weekWiseDataset = {};
-  dayWiseDataset.map((data, i) => {
+  let weekWiseDataset = dayWiseDataset.reduce((acc, data, i) => {
     if (i % 7 === 0) {
       week_number++;
-      weekWiseDataset[`week-${week_number}`] = [];
+      acc[`week-${week_number}`] = [];
     }
-    weekWiseDataset[`week-${week_number}`].push(data);
-  });
+    acc[`week-${week_number}`].push(data);
+    return acc;
+  }, {});
+
+  //  Don't return the last week or say the current week user is accesing the server
+  delete weekWiseDataset[`week-${week_number}`];
 
   return weekWiseDataset;
 };

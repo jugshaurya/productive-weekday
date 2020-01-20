@@ -21,10 +21,10 @@ app.get("/user/:user", async (req, res, next) => {
   try {
     // 1. fetch the user created year, name, avatar_url
     const { user } = req.params;
-    const userInfo = await getUserInfo(user, next);
+    const userInfo = await getUserInfo(user);
 
     // 2. Generate User Dataset
-    const dataset = await generateUserContributionDataset(userInfo, next);
+    const dataset = await generateUserContributionDataset(userInfo);
     res.status(200).json({ userInfo, dataset: dataset || {} });
   } catch (error) {
     next(error);
