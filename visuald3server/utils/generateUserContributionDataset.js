@@ -70,9 +70,23 @@ const generateUserContributionDataset = async user => {
     return acc;
   }, {});
 
+  // only start counting the contribution when u got the first contribution not before that
+  // otherwise user have to wait for a long time for seeing the visuals movement
+  // Generally users wait 2 years after creating accounts before starting the contribution journey
+  let firstNonZeroDate = joinedDate;
+  const keysArray = Object.keys(datesWithCountAndDayObj);
+  const length = keysArray.length;
+  for (let alpha = 0; alpha < length; alpha++) {
+    if (datesWithCountAndDayObj[keysArray[alpha]].count > 0) {
+      firstNonZeroDate = keysArray[alpha];
+      break;
+    }
+  }
+
   // returing the results from joined date till today
   const filteredKeys = Object.keys(datesWithCountAndDayObj).filter(
-    obj => new Date(obj) >= new Date(joinedDate) && new Date(obj) <= new Date()
+    obj =>
+      new Date(obj) >= new Date(firstNonZeroDate) && new Date(obj) <= new Date()
   );
 
   const dayWiseDataset = filteredKeys.reduce((acc, key) => {
