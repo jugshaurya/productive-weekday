@@ -1,41 +1,41 @@
 const fs = require("fs");
 
 const getRandomCount = () => {
-  return Math.round(Math.random() * 50);
+  return Math.round(Math.random() * 10);
 };
 
 const getDay = i => {
   const day = i % 7;
   switch (day) {
     case 0:
-      return "Sun";
+      return "Sunday";
     case 1:
-      return "Mon";
+      return "Monday";
     case 2:
-      return "Tue";
+      return "Tuesday";
     case 3:
-      return "Wed";
+      return "Wednesday";
     case 4:
-      return "Thur";
+      return "Thursday";
     case 5:
-      return "Fri";
+      return "Friday";
     case 6:
-      return "Sat";
+      return "Saturday";
   }
 };
 
-const START_DATE = new Date("2018-06-01");
+const START_DATE = new Date();
 const getDate = i => {
-  const date = new Date(new Date().setDate(START_DATE.getDate() + i));
+  const date = new Date(new Date().setDate(START_DATE.getDate() + i - 70));
 
-  return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+  return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
 };
 
 const getDatewithObj = i => {
   const result = {};
   result["date"] = getDate(i);
   result["day"] = getDay(i);
-  result["count"] = getRandomCount();
+  result["contribCount"] = getRandomCount();
   return result;
 };
 
@@ -57,7 +57,21 @@ const generateDataset = () => {
   return dataset;
 };
 
-const DATASET = generateDataset();
+const generateRandomUser = () => {
+  return {
+    avatar_url: "https://i.pravatar.cc/300",
+    name: null,
+    github_username: null,
+    joinedYear: "2019",
+    joinedDate: "2019-06-01"
+  };
+};
+
+const DATASET = {
+  dataset: generateDataset(),
+  userInfo: generateRandomUser()
+};
+
 console.log(DATASET);
 
 const util = require("util");

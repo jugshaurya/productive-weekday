@@ -13,7 +13,7 @@ class SingleBar extends React.Component {
     // tweeking the properties
     d3.selection()
       .transition(`update-${property}-smoothly-${data.day}`)
-      .duration(1500)
+      .duration(1000)
       .ease(effect)
       .tween(`update-${property}-smoothly-${data.day}`, () => {
         const interpolate = d3.interpolate(
@@ -72,7 +72,12 @@ class SingleBar extends React.Component {
         />
 
         <text x={15} y={barHeight / 2} dy=".35em">
-          {data.day}
+          {data.day === "Thursday"
+            ? "Thur"
+            : data.day
+                .split("")
+                .slice(0, 3)
+                .join("")}
         </text>
 
         <text x={smooth_barWidth + 5} y={barHeight / 2} dy=".35em">

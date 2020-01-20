@@ -20,7 +20,6 @@ class ShowRacebarGraph extends Component {
       if (lock) {
         const { weekData, week_number, dataset, number_of_weeks } = this.state;
         lock = false;
-        console.log(weekData);
         this.setState(
           {
             week_number: week_number + 1,
@@ -38,7 +37,7 @@ class ShowRacebarGraph extends Component {
           }
         );
       }
-    }, 1500);
+    }, 1000);
   }
 
   addContribCounts = (prevData, newData) => {
@@ -47,13 +46,11 @@ class ShowRacebarGraph extends Component {
       return newData;
     }
 
-    console.log("safsaf", prevData, newData);
     const result = newData.map((data, i) => ({
       ...data,
       contribCount: data.contribCount + prevData[i].contribCount
     }));
 
-    console.log("resukt", result);
     return result;
   };
 
@@ -71,10 +68,85 @@ class ShowRacebarGraph extends Component {
     }
   };
 
-  render() {
-    console.log(this.state.dataset);
-    const { svgHeight, svgWidth, weekData, week_number } = this.state;
+  showGrid() {
+    return (
+      <>
+        <defs>
+          <pattern
+            id="smallGrid"
+            width="5"
+            height="5"
+            patternUnits="userSpaceOnUse"
+          >
+            <path
+              d="M 10 0 L 0 0 0 10"
+              fill="none"
+              stroke="gray"
+              strokeWidth="1"
+            />
+          </pattern>
+          <pattern
+            id="medSmallGrid"
+            width="10"
+            height="10"
+            patternUnits="userSpaceOnUse"
+          >
+            <rect width="100" height="100" fill="url(#smallGrid)" />
+            <path
+              d="M 10 0 L 0 0 0 10"
+              fill="none"
+              stroke="black"
+              strokeWidth="1"
+            />
+          </pattern>
+          <pattern
+            id="medLargeGrid"
+            width="50"
+            height="50"
+            patternUnits="userSpaceOnUse"
+          >
+            <rect width="100" height="100" fill="url(#medSmallGrid)" />
+            <path
+              d="M 10 0 L 0 0 0 10"
+              fill="none"
+              stroke="violet"
+              strokeWidth="1"
+            />
+          </pattern>
+          <pattern
+            id="largeGrid"
+            width="100"
+            height="100"
+            patternUnits="userSpaceOnUse"
+          >
+            <rect width="100" height="100" fill="url(#medLargeGrid)" />
+            <path
+              d="M 100 0 L 0 0 0 100"
+              fill="none"
+              stroke="red"
+              strokeWidth="1"
+            />
+          </pattern>
+        </defs>
 
+        <rect
+          className="defs-rect"
+          width="100%"
+          height="100%"
+          fill="url(#largeGrid)"
+        />
+      </>
+    );
+  }
+  render() {
+    const {
+      svgHeight,
+      svgWidth,
+      weekData,
+      week_number,
+      dataset,
+      userInfo
+    } = this.state;
     const sortedWeekData = weekData.sort((x, y) => {
       if (x.contribCount < y.contribCount) return 1;
       if (x.contribCount > y.contribCount) return -1;
@@ -101,32 +173,46 @@ class ShowRacebarGraph extends Component {
       <>
         <article className="race-bar-graph">
           <svg ref={this.refCallback}>
+            {this.showGrid()}
             {sortedWeekData.map(data => (
               <SingleBar
                 key={data.day}
                 data={data}
                 y={yAxis(data.day)}
+                // Initial length is shown to be 50
                 barWidth={50 + xAxis(data.contribCount)}
                 barHeight={yAxis.bandwidth()}
               />
             ))}
             <g className="week-number">
-              <text x={svgWidth - 130} y={svgHeight - 30}>
+              <text x={svgWidth - 130} y={svgHeight - 60}>
                 week-{week_number}
+              </text>
+              <text className="date" x={svgWidth - 130} y={svgHeight - 30}>
+                {dataset[`week-${week_number + 1}`]
+                  ? dataset[`week-${week_number + 1}`][6].date
+                  : dataset[`week-${week_number}`][6].date}
               </text>
             </g>
           </svg>
         </article>
+
         <article className="who-won">
-          <h4>
-            Productive Weekday:{" "}
-            <span className="won-day">
-              {weekData.length === 0 ? "Sun" : weekData[0].day}{" "}
-            </span>
-          </h4>
-          <button type="button" onClick={this.props.onReplay}>
-            Replay
-          </button>
+          <div className="user-info">
+            <img src={userInfo.avatar_url} alt="username" />
+            {userInfo.github_username}
+          </div>
+          <div>
+            <h4>
+              Productive Weekday:{" "}
+              <span className="won-day">
+                {weekData.length === 0 ? "Sun" : weekData[0].day}{" "}
+              </span>
+            </h4>
+            <button type="button" onClick={this.props.onReplay}>
+              Replay
+            </button>
+          </div>
         </article>
       </>
     );

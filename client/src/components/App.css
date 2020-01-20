@@ -9,6 +9,11 @@
   box-sizing: border-box;
 }
 
+.loading-svg {
+  width: 100px !important;
+  height: auto;
+}
+
 .App-header {
   font-size: calc(5px + 2vmin);
   text-align: center;
@@ -117,19 +122,43 @@ h3.svg-label {
   box-shadow: 2px 3px 5px black;
 }
 
+.defs-rect {
+  opacity: 0.2;
+}
+
 .week-number {
   font-size: 1.6rem;
   font-weight: bolder;
+}
+
+.week-number .date {
+  font-size: 1rem;
+}
+
+.user-info {
+  color: #278ea5;
+  font-size: 1.2em;
+}
+
+.user-info img {
+  width: 80px;
+  height: auto;
+  border-radius: 50%;
 }
 
 .who-won {
   color: #1f2833;
   text-align: center;
   margin-top: 5vh;
+  display: flex;
+  justify-content: space-evenly;
 }
+
 .who-won h4 {
   margin-bottom: 10px;
+  text-align: center;
 }
+
 .won-day {
   font-weight: 500;
   font-size: 1.3em;
@@ -143,7 +172,7 @@ text {
 /* Desktop First Approach */
 @media (min-width: 460px) and (max-width: 720px) {
   .App-header {
-    min-height: 52vh;
+    min-height: 49vh;
     padding: 10px;
   }
 
@@ -221,7 +250,7 @@ text {
   }
 
   section {
-    height: 44vh;
+    height: 42vh;
     width: 60%;
     left: 20%;
     top: -15vh;

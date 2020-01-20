@@ -61,10 +61,10 @@
   - [x] Smooth the y-position-change, count update, barwidth update.
   - [x] Show labels day and count
   - [x] Change Bar colors and modify the UI
-  - [ ] show the week near the right bottom corner with date
-  - [ ] show ticks on x and y axis
-  - [ ] Give user the timer to handle s seconds
-  - [ ] Show user info somewhere
+  - [x] show the week near the right bottom corner with date
+  - [x] show ticks on x and y axis/ Show Grid
+  - [x] Render Random Data for visuals
+  - [x] Show user info somewhere
 
 ### What is D3 ?
 

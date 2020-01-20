@@ -1,14 +1,14 @@
 import React from "react";
 import "./App.css";
 import "./ribbon.styles.css";
-// import DATASET from "../assets/dataset";
+import DATASET from "../assets/dataset";
 import ShowRacebarGraph from "./ShowRacebarGraph";
 import { ReactComponent as MainSVG } from "../assets/main.svg";
 import { ReactComponent as LoadingSVG } from "../assets/loadingicon.svg";
 class App extends React.Component {
   state = {
     username: "",
-    dataset: null,
+    dataset: DATASET,
     // dataset: DATASET,
     fetchingError: null,
     isFetching: false,
@@ -76,7 +76,7 @@ class App extends React.Component {
             World !
           </h3>
           {isFetching ? (
-            <LoadingSVG />
+            <LoadingSVG className="loading-svg" />
           ) : (
             <form onSubmit={this.handleFetchingUserDataset}>
               <div className="label"> Github Username</div>
