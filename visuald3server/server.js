@@ -31,6 +31,10 @@ app.get("/user/:user", async (req, res, next) => {
   }
 });
 
+app.get("/", (req, res) => {
+  res.json({ message: "Welcome to Productive-weekday-server" });
+});
+
 // Handling unwanted routes
 app.use((req, res, next) => {
   const error = new Error("Invalid Route man!");

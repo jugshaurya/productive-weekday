@@ -1,26 +1,27 @@
 ### Idea
 
-- To make those racing cars bar-chart of youtube that people make to earn money in excel or tabuleau, but we are goiing to make it using code!!
-- Much thanks to https://observablehq.com/@d3/bar-chart-race
-  https://observablehq.com/@d3/bar-chart-race-explained
-  https://observablehq.com/@johnburnmurdoch/bar-chart-race
+```
+To make those racing cars bar-chart of youtube that people make to earn money in excel or tabuleau, but we are goiing to make it using code!!
+```
 
-- Goal In Mind
-- Find the most productive week day of your github from the day a person joined the github
+### Goal In Mind
 
-* Tech Stack
+```
+1. Find the most productive week day of your github from the day a person joined the github
+2. My Dataset
+  a. will be using cherrio to fetch the data of day wise contribution-count from the github page
+  b. Not using github api to fetch users data
+3. Tech Stack
+  a. React
+  b. D3.js (v5)
+  c. Dataset week wise
+```
 
-  - React
-  - D3.js (v5)
-  - Dataset year wise
+---
 
-    - we have a year wise list of things
-    - for each year we have several list of things, with a property that will help in showing the rank of that thing in that year.
+## Result:
 
-* My Dataset
-
-  - will be using cherrio to fetch the data of day wise contribution-count from the github page
-  - Not using github api to fetch users data
+![](app.gif)
 
 ### STEPS:
 
@@ -39,10 +40,8 @@
     - https://github.com/users/jugshaurya/contributions?from=`yyyy`-12-01&to=``yyyy``-12-31
     - this will give result from `yyyy-1`-12-31 to `yyyy`-12-31
 
-    ```
     https://github.com/users/jugshaurya/contributions?from=`yyyy+i`-12-01&to=`yyyy+i`-12-31
     ... for i = 0 to i<=d
-    ```
 
 3. generate the dataset from scrapUrls after step 2
 
@@ -53,21 +52,23 @@
 4. Plot the Result as race bar graph to see the most productive Week Day
 
 - [x] Generate fake data (done using src/utils/gerateRandomData.js) and then :
+- [x] Plot Bar graph for one week first
+- [x] plot the bar graph for every week every `s` number of seconds; s=1000
+- [x] new weekly data will be containing the sum of counts of days from week-1 to week-z; where z is current week pltot number
+- [x] Arrange the bars in descending order to arrange the max value bar at the top and min at the bottom
+- [x] Smooth the y-position-change, count update, barwidth update.
+- [x] Show labels day and count
+- [x] Change Bar colors and modify the UI
+- [x] show the week near the right bottom corner with date
+- [x] show ticks on x and y axis/ Show Grid
+- [x] Render Random Data for visuals
+- [x] Show user info somewhere
+- [x] Display the error toast(#issue2)
 
-  - [x] Plot Bar graph for one week first
-  - [x] plot the bar graph for every week every `s` number of seconds; s=1000
-  - [x] new weekly data will be containing the sum of counts of days from week-1 to week-z; where z is current week pltot number
-  - [x] Arrange the bars in descending order to arrange the max value bar at the top and min at the bottom
-  - [x] Smooth the y-position-change, count update, barwidth update.
-  - [x] Show labels day and count
-  - [x] Change Bar colors and modify the UI
-  - [x] show the week near the right bottom corner with date
-  - [x] show ticks on x and y axis/ Show Grid
-  - [x] Render Random Data for visuals
-  - [x] Show user info somewhere
-  - [x] Display the error toast (#issue2)
+#### Deployment
 
-- 5. Deploy
+- add a now.json file
+- [server](https://productive-weekday-server.jugshaurya.now.sh)
 
 ### What is D3 ?
 
@@ -79,33 +80,24 @@
 
 - is a key process in all types of animation, including computer animation. It is the process of generating intermediate frames between two images, called key frames, to give the appearance that the first image evolves smoothly into the second image.
 
+---
+
 ## Thank you
 
 - https://github.com/cheeriojs/cheerio
 - https://www.sitepoint.com/best-javascript-charting-libraries/
-
-  - d3 won , thnks to first comment :)
-
+- https://observablehq.com/@d3/bar-chart-race
+- https://observablehq.com/@d3/bar-chart-race-explained
+- https://observablehq.com/@johnburnmurdoch/bar-chart-race
 - https://github.com/d3/d3
 - https://observablehq.com/@d3/bar-chart-race
-- Github Scarping Policy ( https://help.github.com/en/github/site-policy/github-acceptable-use-policies#5-scraping-and-api-usage-restrictions)
+- [Github Scarping Policy ](https://help.github.com/en/github/site-policy/github-acceptable-use-policies#5-scraping-and-api-usage-restrictions)
 - https://www.tutorialsteacher.com/d3js/create-bar-chart-using-d3js
-
-## D3 help
-
 - https://devdocs.io/d3~5/d3-scale#scaleBand
 - https://github.com/d3/d3-scale/blob/master/README.md
 - https://www.tutorialsteacher.com/d3js/create-svg-chart-in-d3js
 - https://www.tutorialsteacher.com/d3js/scales-in-d3
-
-<!-- Corner Ribbon codepen -->
-
 - https://codepen.io/nxworld/pen/oLdoWb
 - https://undraw.co/illustrations
 - https://favicon.io/favicon-converter/
-
-## Result:
-
-![](app.gif)
-
-<!-- ![](https://github.com/jugshaurya/productive-weekday/blob/master/app.gif) -->
+- https://scotch.io/tutorials/easily-deploy-a-serverless-node-app-with-zeit-now
