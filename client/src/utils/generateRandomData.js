@@ -1,7 +1,7 @@
 const fs = require("fs");
 
 const getRandomCount = () => {
-  return Math.round(Math.random() * 100);
+  return Math.round(Math.random() * 50);
 };
 
 const getDay = i => {

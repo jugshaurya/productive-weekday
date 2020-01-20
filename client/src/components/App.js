@@ -1,13 +1,18 @@
 import React from "react";
 import "./App.css";
-
+import "./ribbon.styles.css";
+// import DATASET from "../assets/dataset";
 import ShowRacebarGraph from "./ShowRacebarGraph";
+import { ReactComponent as MainSVG } from "../assets/main.svg";
+import { ReactComponent as LoadingSVG } from "../assets/loadingicon.svg";
 class App extends React.Component {
   state = {
     username: "",
     dataset: null,
+    // dataset: DATASET,
     fetchingError: null,
-    isFetching: false
+    isFetching: false,
+    replayKey: true
   };
 
   handleChange = e => {
@@ -46,27 +51,58 @@ class App extends React.Component {
       });
   };
 
+  replayAnimation = () => {
+    this.setState({ replayKey: !this.state.replayKey });
+  };
+
   render() {
-    console.log(this.state.dataset);
+    const {
+      username,
+      dataset,
+      fetchingError,
+      isFetching,
+      replayKey
+    } = this.state;
+
     return (
       <div className="App">
         <header className="App-header">
-          <h1> Visualize the Dataset </h1>
-
-          {/* <form onSubmit={this.handleFetchingUserDataset}>
-            <input
-              onChange={this.handleChange}
-              type="text"
-              name="username"
-              value={this.state.username}
-            />
-            <button type="submit">Fetch</button>
-          </form> */}
-
-          {/* {this.state.dataset && ( */}
-          <ShowRacebarGraph dataset={this.state.dataset} />
-          {/* )} */}
+          <div className="ribbon ribbon-top-left">
+            <span>Made by Shaurya</span>
+          </div>
+          <MainSVG />
+          <h3>
+            Find out the most Productive <span>Weekday</span> of your Github
+            World !
+          </h3>
+          {isFetching ? (
+            <LoadingSVG />
+          ) : (
+            <form onSubmit={this.handleFetchingUserDataset}>
+              <div className="label"> Github Username</div>
+              <input
+                onChange={this.handleChange}
+                type="text"
+                name="username"
+                placeholder="Username"
+                value={username}
+              />
+              <button type="submit">Draw</button>
+            </form>
+          )}
         </header>
+        <main>
+          <section>
+            <h3 className="svg-label"> Weekly-Data</h3>
+            {dataset && (
+              <ShowRacebarGraph
+                key={replayKey}
+                dataset={dataset}
+                onReplay={this.replayAnimation}
+              />
+            )}
+          </section>
+        </main>
       </div>
     );
   }

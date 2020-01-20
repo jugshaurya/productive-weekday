@@ -53,11 +53,18 @@
 4. Plot the Result as race bar graph to see the most productive Week Day
 
 - [x] Generate fake data (done using src/utils/gerateRandomData.js) and then :
+
   - [x] Plot Bar graph for one week first
   - [x] plot the bar graph for every week every `s` number of seconds; s=1000
   - [x] new weekly data will be containing the sum of counts of days from week-1 to week-z; where z is current week pltot number
   - [x] Arrange the bars in descending order to arrange the max value bar at the top and min at the bottom
   - [x] Smooth the y-position-change, count update, barwidth update.
+  - [x] Show labels day and count
+  - [x] Change Bar colors and modify the UI
+  - [ ] show the week near the right bottom corner with date
+  - [ ] show ticks on x and y axis
+  - [ ] Give user the timer to handle s seconds
+  - [ ] Show user info somewhere
 
 ### What is D3 ?
 
@@ -87,3 +94,8 @@
 - https://github.com/d3/d3-scale/blob/master/README.md
 - https://www.tutorialsteacher.com/d3js/create-svg-chart-in-d3js
 - https://www.tutorialsteacher.com/d3js/scales-in-d3
+
+<!-- Corner Ribbon codepen -->
+
+- https://codepen.io/nxworld/pen/oLdoWb
+- https://undraw.co/illustrations

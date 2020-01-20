@@ -1,25 +1,229 @@
 .App {
-  /* text-align: center; */
-  min-height: 100vh;
-  font-size: calc(10px + 2vmin);
-  background-color: #071e3d;
+  max-height: 100vh;
+  color: #c5c6c7;
+  width: 100vw;
+  font-family: "Work Sans", sans-serif;
+  width: 100vw;
+  overflow: hidden;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .App-header {
-  padding-top: 50px;
-  color: white;
+  font-size: calc(5px + 2vmin);
+  text-align: center;
+  background-color: #1f2833;
+  min-height: 50vh;
+  padding: 10px;
+  /* for left-corner ribbon */
+  position: relative;
 }
 
-input {
-  height: 1.5rem;
-  font-size: 1.2rem;
-  padding: 8px;
+.App-header span {
+  display: block;
+}
+
+.App-header svg {
+  width: 150px;
+  padding-top: 10px;
+  height: auto;
+}
+
+.App-header h3 span {
+  letter-spacing: 2px;
+  text-decoration: underline;
+  color: #45a29e;
+}
+
+.App-header form {
+  padding: 6px 0px;
+}
+
+.App-header input {
+  border: 3px solid #364f6b;
+  font-size: 1.2em;
+  padding: 3px 0 3px 10px;
+  border-radius: 3px;
+  background: #c5c6c7;
+  color: #1f2833;
+  font-weight: 500;
 }
 
 button {
   margin-left: 10px;
-  border-radius: 3px;
-  font-size: 1.2rem;
-  padding: 5px;
-  background-color: #278ea5;
+  border: 3px solid #364f6b;
+  font-size: 1.25em;
+  padding: 3px 20 3px 20px;
+  display: inline-block;
+  border-radius: 5px;
+  background: #c5c6c7;
+  color: #1f2833;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+.label {
+  padding: 10px 0px;
+  color: #fc5185;
+  font-size: 1.2em;
+  /* color: #364f6b; */
+}
+
+/* Main Section */
+main {
+  position: relative;
+  /* border: 3px solid sandybrown; */
+  height: 46vh;
+  background: #f0f0f0;
+}
+
+section {
+  position: absolute;
+  height: 40vh;
+  width: 90vw;
+  left: 5vw;
+  padding: 2px;
+  background: #278ea5;
+  top: -13vh;
+  border-radius: 10px;
+  z-index: 100;
+}
+
+h3.svg-label {
+  left: 31%;
+  border-radius: 10px;
+  background: #fc5185;
+  padding: 2px 10px;
+  position: absolute;
+
+  top: -35px;
+  display: inline-block;
+}
+
+/* ShowRacebarGraph.jsx */
+.race-bar-graph {
+  height: 94%;
+  width: 96%;
+  margin: 0 auto;
+  padding-top: 1%;
+}
+
+.race-bar-graph svg {
+  box-sizing: border-box;
+  padding-top: 10px;
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 2px 3px 5px black;
+}
+
+.week-number {
+  font-size: 1.6rem;
+  font-weight: bolder;
+}
+
+.who-won {
+  color: #1f2833;
+  text-align: center;
+  margin-top: 5vh;
+}
+.who-won h4 {
+  margin-bottom: 10px;
+}
+.won-day {
+  font-weight: 500;
+  font-size: 1.3em;
+  color: #fc5185;
+}
+
+text {
+  font-weight: 500;
+}
+
+/* Desktop First Approach */
+@media (min-width: 460px) and (max-width: 720px) {
+  .App-header {
+    min-height: 52vh;
+    padding: 10px;
+  }
+
+  main {
+    min-height: 48vh;
+  }
+
+  section {
+    width: 80%;
+    left: 10%;
+    padding: 5px;
+    top: -10vh;
+  }
+
+  h3.svg-label {
+    left: 40%;
+    border-radius: 10px;
+  }
+}
+
+@media (min-width: 720px) and (max-width: 968px) {
+  .App {
+    background: #278ea5;
+  }
+  .App-header {
+    width: 90vw;
+    margin: 0 auto;
+    min-height: 55vh;
+  }
+
+  .App-header span {
+    display: inline;
+  }
+
+  main {
+    min-height: 45vh;
+  }
+
+  h3.svg-label {
+    left: 40%;
+    border-radius: 10px;
+  }
+
+  section {
+    height: 42vh;
+    width: 80%;
+    left: 10%;
+    /* padding: 10px; */
+    top: -15vh;
+  }
+}
+
+@media (min-width: 968px) {
+  .App {
+    background: #278ea5;
+  }
+
+  .App-header {
+    width: 80vw;
+    margin: 0 auto;
+    min-height: 55vh;
+  }
+
+  .App-header span {
+    display: inline;
+  }
+
+  main {
+    min-height: 45vh;
+    /* margin: 0 auto; */
+  }
+
+  h3.svg-label {
+    left: 44%;
+  }
+
+  section {
+    height: 44vh;
+    width: 60%;
+    left: 20%;
+    top: -15vh;
+  }
 }
