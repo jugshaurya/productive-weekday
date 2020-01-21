@@ -5,7 +5,8 @@ const compress = require("compression");
 const morgan = require("morgan");
 const app = express();
 
-app.use(morgan("tiny"));
+// Uncomment it out if in development mode
+// app.use(morgan("tiny"));
 
 app.use(cors());
 app.use(helmet());
@@ -37,7 +38,7 @@ app.get("/", (req, res) => {
 
 // Handling unwanted routes
 app.use((req, res, next) => {
-  const error = new Error("Invalid Route man!");
+  const error = new Error("Page not Found, Route Invalid");
   error.status = 404;
   next(error);
 });
