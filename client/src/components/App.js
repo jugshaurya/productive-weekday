@@ -28,7 +28,7 @@ class App extends React.Component {
     const SERVER_URL = "https://productive-weekday-server.jugshaurya.now.sh";
     if (!username)
       return this.setState({
-        fetchingError: { status: null, message: "Enter a Github Username" }
+        fetchingError: { message: "Enter a Github Username" }
       });
 
     // Fetching start
@@ -36,18 +36,21 @@ class App extends React.Component {
     // Fetching Pending + Fetching Resolved/Rejected
     fetch(`${SERVER_URL}/user/${username}`)
       .then(response => response.json())
-      .then(dataset =>
+      .then(dataset => {
+        if (dataset.error && dataset.error.status >= 400) {
+          throw new Error(dataset.error.message);
+        }
         this.setState({
           dataset,
           fetchingError: null,
           isFetching: false,
           username: ""
-        })
-      )
-      .catch(err => {
+        });
+      })
+      .catch(error => {
         this.setState({
           dataset: null,
-          fetchingError: err,
+          fetchingError: error,
           isFetching: false,
           username: ""
         });
