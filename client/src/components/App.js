@@ -25,7 +25,7 @@ class App extends React.Component {
   handleFetchingUserDataset = e => {
     e.preventDefault();
     const { username } = this.state;
-
+    const SERVER_URL = "https://productive-weekday-server.jugshaurya.now.sh";
     if (!username)
       return this.setState({
         fetchingError: { status: null, message: "Enter a Github Username" }
@@ -34,7 +34,7 @@ class App extends React.Component {
     // Fetching start
     this.setState({ fetchingError: null, dataset: null, isFetching: true });
     // Fetching Pending + Fetching Resolved/Rejected
-    fetch(`http://localhost:8080/user/${username}`)
+    fetch(`${SERVER_URL}/user/${username}`)
       .then(response => response.json())
       .then(dataset =>
         this.setState({
@@ -71,7 +71,6 @@ class App extends React.Component {
       setTimeout(() => {
         this.setState({
           username: "",
-          dataset: DATASET,
           fetchingError: null,
           isFetching: false,
           replayKey: true
@@ -83,7 +82,7 @@ class App extends React.Component {
       <div className="App">
         {fetchingError && (
           <div id="toast" className={fetchingError.message ? "show" : null}>
-            {fetchingError.status} {fetchingError.message}
+            {fetchingError.message}
           </div>
         )}
         <header className="App-header">
@@ -93,7 +92,7 @@ class App extends React.Component {
           <MainSVG />
           <h3>
             Find out the most Productive <span>Weekday</span> of your Github
-            World !
+            World!
           </h3>
           {isFetching ? (
             <LoadingSVG className="loading-svg" />
@@ -102,12 +101,12 @@ class App extends React.Component {
               <div className="label"> Github Username</div>
               <input
                 onChange={this.handleChange}
-                type="text"
+                type="search"
                 name="username"
                 placeholder="Username"
                 value={username}
               />
-              <button type="submit">Draw</button>
+              <button type="submit">Go</button>
             </form>
           )}
         </header>

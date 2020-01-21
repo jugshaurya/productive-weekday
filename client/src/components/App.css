@@ -1,10 +1,12 @@
 .App {
   max-height: 100vh;
   color: #c5c6c7;
+  padding: 10px;
+  padding-bottom: 0;
   width: 100vw;
+  height: 100vh;
   font-family: "Work Sans", sans-serif;
-  width: 100vw;
-  overflow: hidden;
+  /* overflow: hidden; */
   margin: 0 auto;
   background: rgb(39, 142, 165, 0.2) url("../assets/background.svg") repeat-x
     center bottom;
@@ -48,22 +50,26 @@
 
 .App-header input {
   border: 3px solid #364f6b;
-  font-size: 1.2em;
+  font-size: 1.1em;
   padding: 3px 0 3px 10px;
   border-radius: 3px;
-  background: #c5c6c7;
-  color: #1f2833;
+  background: transparent;
+  color: #c5c6c7;
   font-weight: 500;
+}
+
+.App-header form button {
+  color: #c5c6c7;
 }
 
 button {
   margin-left: 10px;
   border: 3px solid #364f6b;
-  font-size: 1.25em;
+  font-size: 1.1em;
   padding: 3px 20 3px 20px;
   display: inline-block;
   border-radius: 5px;
-  background: #c5c6c7;
+  background: transparent;
   color: #1f2833;
   font-weight: 500;
   letter-spacing: 1px;
@@ -73,25 +79,21 @@ button {
   padding: 10px 0px;
   color: #fc5185;
   font-size: 1.2em;
-  /* color: #364f6b; */
 }
 
 /* Main Section */
 main {
   position: relative;
-  /* border: 3px solid sandybrown; */
-  height: 49vh;
-  /* background: #f0f0f0; */
 }
 
 section {
   position: absolute;
   height: 40vh;
-  width: 90vw;
+  width: 90%;
   left: 5vw;
-  background: rgb(39, 142, 165, 0.8);
+  /* background: rgb(39, 142, 165, 1); */
   padding: 2px;
-
+  background: rgb(39, 142, 165, 1) url("../assets/background.svg") no-repeat;
   top: -13vh;
   border-radius: 10px;
   z-index: 100;
@@ -146,6 +148,8 @@ h3.svg-label {
 .user-info {
   color: #1f2833;
   font-size: 1.2em;
+  display: flex;
+  flex-direction: column;
 }
 
 .user-info img {
@@ -186,15 +190,15 @@ text {
     padding: 10px;
   }
 
-  main {
-    min-height: 48vh;
+  .App-header form {
+    margin-top: -0.5em;
   }
 
   section {
     width: 80%;
     left: 10%;
     padding: 5px;
-    top: -10vh;
+    top: -9.5vh;
   }
 
   h3.svg-label {
@@ -205,17 +209,15 @@ text {
 
 @media (min-width: 720px) and (max-width: 968px) {
   .App-header {
-    /* width: 90vw; */
-    margin: 0 auto;
-    min-height: 55vh;
+    min-height: 53vh;
+  }
+
+  .App-header form {
+    margin-top: -1em;
   }
 
   .App-header span {
     display: inline;
-  }
-
-  main {
-    min-height: 45vh;
   }
 
   h3.svg-label {
@@ -227,16 +229,17 @@ text {
     height: 42vh;
     width: 80%;
     left: 10%;
-    /* padding: 10px; */
     top: -15vh;
   }
 }
 
 @media (min-width: 968px) {
   .App-header {
-    /* width: 80vw; */
-    margin: 0 auto;
-    min-height: 55vh;
+    min-height: 53vh;
+  }
+
+  .App-header form {
+    margin-top: -0.8em;
   }
 
   .App-header span {
@@ -244,7 +247,6 @@ text {
   }
 
   main {
-    min-height: 45vh;
     width: 80vw;
     padding: 10px;
 

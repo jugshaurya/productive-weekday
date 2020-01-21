@@ -13,7 +13,7 @@ class SingleBar extends React.Component {
     // tweeking the properties
     d3.selection()
       .transition(`update-${property}-smoothly-${data.day}`)
-      .duration(1000)
+      .duration(700)
       .ease(effect)
       .tween(`update-${property}-smoothly-${data.day}`, () => {
         const interpolate = d3.interpolate(

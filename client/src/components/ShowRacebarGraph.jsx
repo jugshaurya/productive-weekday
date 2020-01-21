@@ -37,7 +37,7 @@ class ShowRacebarGraph extends Component {
           }
         );
       }
-    }, 1000);
+    }, 700);
   }
 
   addContribCounts = (prevData, newData) => {
@@ -185,10 +185,10 @@ class ShowRacebarGraph extends Component {
               />
             ))}
             <g className="week-number">
-              <text x={svgWidth - 110} y={svgHeight - 60}>
+              <text x={svgWidth - 120} y={svgHeight - 60}>
                 week-{week_number}
               </text>
-              <text className="date" x={svgWidth - 110} y={svgHeight - 30}>
+              <text className="date" x={svgWidth - 120} y={svgHeight - 30}>
                 {dataset[`week-${week_number + 1}`]
                   ? dataset[`week-${week_number + 1}`][6].date
                   : dataset[`week-${week_number}`][6].date}

@@ -20,7 +20,7 @@
   border: 3px solid white;
   position: absolute;
   display: block;
-  width: 225px;
+  width: 235px;
   padding: 15px 0;
   background-color: #3498db;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
@@ -33,9 +33,9 @@
 
 /* top left*/
 .ribbon-top-left {
-  top: -8px;
+  top: -1px;
 
-  left: -10px;
+  left: -2px;
 }
 .ribbon-top-left::before,
 .ribbon-top-left::after {
