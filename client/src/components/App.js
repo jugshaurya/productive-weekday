@@ -26,6 +26,8 @@ class App extends React.Component {
     e.preventDefault();
     const { username } = this.state;
     const SERVER_URL = "https://productive-weekday-server.jugshaurya.now.sh";
+    // Run if want to run via localhost server code; in development mode
+    // const SERVER_URL = "http://localhost:8080";
     if (!username)
       return this.setState({
         fetchingError: { message: "Enter a Github Username" }

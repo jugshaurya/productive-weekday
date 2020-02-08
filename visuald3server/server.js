@@ -37,6 +37,7 @@ app.get("/user/:user", async (req, res, next) => {
   try {
     // 1. fetch the user created year, name, avatar_url
     const { user } = req.params;
+    // console.log(user);
     const userInfo = await getUserInfo(user);
 
     // 2. Generate User Dataset
