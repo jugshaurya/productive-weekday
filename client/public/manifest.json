@@ -3,13 +3,13 @@
   "name": "Productive week day of Github",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "48x48",
-      "type": "image/x-icon"
+      "src": "favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
     }
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
+  "theme_color": "lightblue",
   "background_color": "#ffffff"
 }

@@ -48,6 +48,7 @@ class ShowRacebarGraph extends Component {
 
     const result = newData.map((data, i) => ({
       ...data,
+
       contribCount: data.contribCount + prevData[i].contribCount
     }));
 
@@ -156,7 +157,7 @@ class ShowRacebarGraph extends Component {
     const yAxis = d3
       .scaleBand()
       .domain(sortedWeekData.map(data => data.day))
-      .range([0, svgHeight])
+      .range([0, svgHeight - 20]) // -20 for svg being inside parent box
       .padding(0.4);
 
     const rightPadding = 50;
@@ -185,10 +186,10 @@ class ShowRacebarGraph extends Component {
               />
             ))}
             <g className="week-number">
-              <text x={svgWidth - 120} y={svgHeight - 60}>
+              <text x={svgWidth - 100} y={svgHeight - 60}>
                 week-{week_number}
               </text>
-              <text className="date" x={svgWidth - 120} y={svgHeight - 30}>
+              <text className="date" x={svgWidth - 100} y={svgHeight - 30}>
                 {dataset[`week-${week_number + 1}`]
                   ? dataset[`week-${week_number + 1}`][6].date
                   : dataset[`week-${week_number}`][6].date}

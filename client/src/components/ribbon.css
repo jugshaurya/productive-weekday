@@ -34,7 +34,6 @@
 /* top left*/
 .ribbon-top-left {
   top: -1px;
-
   left: -2px;
 }
 .ribbon-top-left::before,
@@ -55,10 +54,11 @@
   right: -25px;
   top: 30px;
   transform: rotate(-45deg);
+  font-family: "Neucha", cursive;
 }
 
 @media (min-width: 720px) {
   .ribbon span {
-    font: 700 14px/1.5 "Work Sans", sans-serif;
+    font: 700 13px/1.5 "Neucha", cursive;
   }
 }
