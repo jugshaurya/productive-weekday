@@ -1,14 +1,19 @@
 ## Productive-Weekday ([Visit Now](https://productive-weekday.netlify.com/))
 
 ### Idea
-
 ```
-To make those racing cars bar-chart of youtube that people make to earn money in excel or tabuleau, but we are goiing to make it using code!!
+To make those racing cars bar-chart of youtube that people make to earn money in excel or tabuleau,
+but we are goiing to make it using code!!
 ```
 
 <img src="https://img.shields.io/badge/made%20with-react-cyan.svg" alt="made with react"> <img src="https://img.shields.io/badge/made%20with-d3v5-yellow.svg" alt="made with d3v5">
 <img src="https://img.shields.io/badge/made%20with-cheerio-green.svg" alt="made with cheerio"> <img src="https://img.shields.io/badge/made%20with-express-black.svg" alt="made with express">
 <img src="https://img.shields.io/github/last-commit/jugshaurya/productive-weekday" alt="last-commit"> <img src="https://img.shields.io/github/languages/code-size/jugshaurya/productive-weekday" alt="code-size">
+
+
+## Peek a boo!:
+
+![](app.gif)
 
 ### Goal In Mind
 
@@ -22,12 +27,6 @@ To make those racing cars bar-chart of youtube that people make to earn money in
   b. D3.js (v5)
   c. Dataset week wise
 ```
-
----
-
-## Peek a boo!:
-
-![](app.gif)
 
 ## Run client
 
