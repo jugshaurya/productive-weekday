@@ -1,15 +1,21 @@
+## Productive-Weekday ([Visit Now](https://productive-weekday.netlify.com/))
+
 ### Idea
 
 ```
 To make those racing cars bar-chart of youtube that people make to earn money in excel or tabuleau, but we are goiing to make it using code!!
 ```
 
+<img src="https://img.shields.io/badge/made%20with-react-cyan.svg" alt="made with react"> <img src="https://img.shields.io/badge/made%20with-d3v5-yellow.svg" alt="made with d3v5">
+<img src="https://img.shields.io/badge/made%20with-cheerio-green.svg" alt="made with cheerio"> <img src="https://img.shields.io/badge/made%20with-express-black.svg" alt="made with express">
+<img src="https://img.shields.io/github/last-commit/jugshaurya/productive-weekday" alt="last-commit"> <img src="https://img.shields.io/github/languages/code-size/jugshaurya/productive-weekday" alt="code-size">
+
 ### Goal In Mind
 
 ```
-1. Find the most productive week day of your github from the day a person joined the github
+1. Find the most productive week day of your github from the day a person joined the github.
 2. My Dataset
-  a. will be using cherrio to fetch the data of day wise contribution-count from the github page
+  a. will be using cheerio to fetch the data of day wise contribution-count from the github page.
   b. Not using github api to fetch users data
 3. Tech Stack
   a. React
@@ -19,9 +25,30 @@ To make those racing cars bar-chart of youtube that people make to earn money in
 
 ---
 
-## Result:
+## Peek a boo!:
 
 ![](app.gif)
+
+## Run client
+
+```
+  cd client && yarn start
+```
+
+## Run server
+
+```
+  cd visuald3server && npm run dev
+```
+
+## Wanna Clone?
+
+```
+git clone {this repo}
+cd client && yarn  && yarn start (one tab)
+cd visuald3server && npm i && npm run dev(other tab)
+
+```
 
 ### STEPS:
 
@@ -33,15 +60,17 @@ To make those racing cars bar-chart of youtube that people make to earn money in
   - [x] get the year of joining from this let say `yyyy`
   - [x] calculate the diff of yyyy and today year let day `d`
 
-  2. Dates are something weird while fetching svg of user contribution for github main page
+2. Dates are something weird while fetching svg of user contribution for github main page
 
-  - [x] Generate the urls in an array to do scrapping later on over each url
+- [x] Generate the urls in an array to do scrapping later on over each url
 
-    - https://github.com/users/jugshaurya/contributions?from=`yyyy`-12-01&to=``yyyy``-12-31
-    - this will give result from `yyyy-1`-12-31 to `yyyy`-12-31
+  ```
+  https://github.com/users/jugshaurya/contributions?from=`yyyy`-12-01&to=``yyyy``-12-31
+  - this will give result from `yyyy-1`-12-31 to `yyyy`-12-31
 
-    https://github.com/users/jugshaurya/contributions?from=`yyyy+i`-12-01&to=`yyyy+i`-12-31
-    ... for i = 0 to i<=d
+  https://github.com/users/jugshaurya/contributions?from=`yyyy+i`-12-01&to=`yyyy+i`-12-31
+  ... for i = 0 to i<=d
+  ```
 
 3. generate the dataset from scrapUrls after step 2
 
@@ -74,7 +103,7 @@ To make those racing cars bar-chart of youtube that people make to earn money in
 ### What is D3 ?
 
 - D3 stands for Data-Driven Documents and is widely used to create interactive data visualizations on the web.
-- The way most people use D3 with React is to use React to build the structure of the application, and to render traditional HTML elements, and then when it comes to the data visualization section, they pass a DOM container (typically an <svg> ) over to D3 and use D3 to create and destroy and update elements.
+- The way most people use D3 with React is to use React to build the structure of the application, and to render traditional HTML elements, and then when it comes to the data visualization section, they pass a DOM container (typically an svg) over to D3 and use D3 to create and destroy and update elements.
   -D3 helps you bring data to life using SVG, Canvas and HTML. D3 combines powerful visualization and interaction techniques with a data-driven approach to DOM manipulation, giving you the full capabilities of modern browsers and the freedom to design the right visual interface for your data.
 
 ### Inbetweening or tweening
@@ -102,3 +131,15 @@ To make those racing cars bar-chart of youtube that people make to earn money in
 - https://undraw.co/illustrations
 - https://favicon.io/favicon-converter/
 - https://scotch.io/tutorials/easily-deploy-a-serverless-node-app-with-zeit-now
+
+#### Server
+
+```
+https://productive-weekday-server.jugshaurya.now.sh
+```
+
+#### Client
+
+```
+https://productive-weekday.netlify.com/
+```

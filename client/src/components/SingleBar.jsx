@@ -80,7 +80,12 @@ class SingleBar extends React.Component {
                 .join("")}
         </text>
 
-        <text x={smooth_barWidth + 5} y={barHeight / 2} dy=".35em">
+        <text
+          x={smooth_barWidth + 5}
+          y={barHeight / 2}
+          dy=".35em"
+          className="count-number"
+        >
           {Math.round(smooth_contribCount)}
         </text>
       </g>

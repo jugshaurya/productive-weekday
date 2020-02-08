@@ -1,21 +1,22 @@
 .App {
-  max-height: 100vh;
+  /* max-height: 111vh; */
   color: #c5c6c7;
   padding: 10px;
   padding-bottom: 0;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
-  font-family: "Work Sans", sans-serif;
-  /* overflow: hidden; */
+  font-family: "Neucha", cursive;
   margin: 0 auto;
   background: rgb(39, 142, 165, 0.2) url("../assets/background.svg") repeat-x
     center bottom;
   box-sizing: border-box;
+  letter-spacing: 2px;
 }
 
-.loading-svg {
-  width: 100px !important;
+.App-header svg.loading-svg {
+  width: 80px !important;
   height: auto;
+  margin-top: -25px !important;
 }
 
 .App-header {
@@ -26,6 +27,10 @@
   padding: 10px;
   /* for left-corner ribbon */
   position: relative;
+}
+
+.App-header h3 {
+  font-size: 1.2em;
 }
 
 .App-header span {
@@ -42,24 +47,32 @@
   letter-spacing: 2px;
   text-decoration: underline;
   color: #45a29e;
+  margin: 5px 0;
 }
 
 .App-header form {
   padding: 6px 0px;
+
+  font-family: "Neucha", cursive;
 }
 
 .App-header input {
   border: 3px solid #364f6b;
   font-size: 1.1em;
-  padding: 3px 0 3px 10px;
+  padding: 6px 2px 3px 15px;
   border-radius: 3px;
   background: transparent;
   color: #c5c6c7;
   font-weight: 500;
+  letter-spacing: 3px;
+
+  font-family: "Neucha", cursive;
 }
 
 .App-header form button {
   color: #c5c6c7;
+  padding: 4px;
+  font-family: "Neucha", cursive;
 }
 
 button {
@@ -107,6 +120,7 @@ h3.svg-label {
   position: absolute;
   top: -35px;
   display: inline-block;
+  box-shadow: 3px 3px 3px #444;
 }
 
 /* ShowRacebarGraph.jsx */
@@ -114,9 +128,10 @@ h3.svg-label {
   height: 94%;
   width: 96%;
   margin: 0 auto;
-  background: rgb(39, 142, 165, 0.8);
-  padding-top: 1%;
+  background: rgb(39, 60, 123, 0.6);
+  padding-top: 0;
   border-radius: 10px;
+  margin-top: 10px;
 }
 
 .race-bar-graph svg {
@@ -133,7 +148,7 @@ h3.svg-label {
 }
 
 .week-number {
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   font-weight: bolder;
 }
 
@@ -168,12 +183,13 @@ h3.svg-label {
 
 .who-won h4 {
   margin-bottom: 10px;
+  margin-top: 10px;
   text-align: center;
   font-size: 1.1em;
 }
 
 .won-day {
-  font-size: 1.5em;
+  font-size: 1em;
   font-weight: 700;
   text-decoration: underline;
   color: #fc5185;
@@ -183,8 +199,12 @@ text {
   font-weight: 500;
 }
 
+text.count-number {
+  fill: gold;
+}
+
 /* Desktop First Approach */
-@media (min-width: 460px) and (max-width: 720px) {
+@media (min-width: 460px) and (max-width: 520px) {
   .App-header {
     min-height: 49vh;
     padding: 10px;
@@ -207,7 +227,7 @@ text {
   }
 }
 
-@media (min-width: 720px) and (max-width: 968px) {
+@media (min-width: 520px) and (max-width: 968px) {
   .App-header {
     min-height: 53vh;
   }
@@ -262,5 +282,56 @@ text {
     width: 60%;
     left: 20%;
     top: -15vh;
+  }
+}
+
+/* Height Responsive */
+@media (max-height: 1021px) {
+  .App {
+    height: 107vh;
+  }
+  main section {
+    top: -7vh;
+  }
+  .who-won {
+    margin: 5vh;
+    margin-bottom: 0;
+  }
+}
+
+@media (max-height: 821px) {
+  .App {
+    height: 111vh;
+  }
+  main section {
+    top: -7vh;
+  }
+  .who-won {
+    margin: 5vh;
+  }
+}
+
+@media (max-height: 640px) {
+  .App {
+    height: 134vh;
+  }
+  .App-header {
+    min-height: 54vh;
+  }
+  main section {
+    position: unset;
+    height: 44vh;
+    width: 95%;
+    margin: 0 auto;
+  }
+
+  .who-won {
+    margin: 5vh;
+  }
+}
+
+@media (max-height: 440px) {
+  .App {
+    height: 160vh;
   }
 }
