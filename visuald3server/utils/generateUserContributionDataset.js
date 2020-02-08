@@ -1,9 +1,9 @@
 const cheerio = require("cheerio");
 const fetch = require("node-fetch");
 
-const getScrapUrls = joinedYear => {
+const getScrapUrls = (joinedYear, user) => {
   const startYear = Number(joinedYear);
-  const SCRAP_BASE_URL = `https://github.com/users/jugshaurya/contributions?`;
+  const SCRAP_BASE_URL = `https://github.com/users/${user.github_username}/contributions?`;
 
   // +1 for including the current Year as well: so Congrats!
   const totalYearOnGithub = new Date().getFullYear() - startYear + 1;
@@ -56,7 +56,7 @@ const getInfoRects = html => {
 const generateUserContributionDataset = async user => {
   const joinedYear = user.joinedYear;
   const joinedDate = user.joinedDate;
-  const urls = getScrapUrls(joinedYear);
+  const urls = getScrapUrls(joinedYear, user);
   const responses = await Promise.all(urls.map(url => fetch(url)));
   const htmls = await Promise.all(responses.map(response => response.text()));
 
@@ -107,7 +107,6 @@ const generateUserContributionDataset = async user => {
 
   //  Don't return the last week or say the current week user is accesing the server
   delete weekWiseDataset[`week-${week_number}`];
-
   return weekWiseDataset;
 };
 
