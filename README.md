@@ -97,7 +97,7 @@ cd visuald3server && npm i && npm run dev(other tab)
 
 - add a now.json file
 - [server](https://productive-weekday-server.jugshaurya.now.sh)
-- Add a bulid command and directory to deploy to netlify
+- Add a bulid command and directory to deploy to netlify.
 
 ### What is D3 ?
 
