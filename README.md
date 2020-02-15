@@ -1,6 +1,6 @@
 ## Productive-Weekday ([Visit Now](https://productive-weekday.netlify.com/))
 
-### Idea
+### Idea :octocat:
 
 ```
 To make those racing cars bar-chart of youtube that people make to earn money in excel or tabuleau,

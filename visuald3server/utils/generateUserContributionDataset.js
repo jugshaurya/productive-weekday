@@ -1,23 +1,6 @@
 const cheerio = require("cheerio");
 const fetch = require("node-fetch");
 
-const getScrapUrls = (joinedYear, user) => {
-  const startYear = Number(joinedYear);
-  const SCRAP_BASE_URL = `https://github.com/users/${user.github_username}/contributions?`;
-
-  // +1 for including the current Year as well: so Congrats!
-  const totalYearOnGithub = new Date().getFullYear() - startYear + 1;
-  const numberOfScraps = new Array(totalYearOnGithub).fill("");
-
-  const scrapURLS = numberOfScraps.map(
-    (item, index) =>
-      `${SCRAP_BASE_URL}from=${startYear + index}-12-01&to=${startYear +
-        index}-12-31`
-  );
-
-  return scrapURLS;
-};
-
 const getDay = i => {
   const day = i % 7;
   switch (day) {
@@ -38,6 +21,23 @@ const getDay = i => {
   }
 };
 
+const getScrapUrls = (joinedYear, user) => {
+  const startYear = Number(joinedYear);
+  const SCRAP_BASE_URL = `https://github.com/users/${user.github_username}/contributions?`;
+
+  // +1 for including the current Year as well: so Congrats!
+  const totalYearOnGithub = new Date().getFullYear() - startYear + 1;
+  const numberOfScraps = new Array(totalYearOnGithub).fill("");
+
+  const scrapURLS = numberOfScraps.map(
+    (item, index) =>
+      `${SCRAP_BASE_URL}from=${startYear + index}-12-01&to=${startYear +
+        index}-12-31`
+  );
+
+  return scrapURLS;
+};
+
 const getInfoRects = html => {
   const $ = cheerio.load(html);
 
@@ -53,9 +53,22 @@ const getInfoRects = html => {
   return filteredData;
 };
 
+const getSvgHtml = async username => {
+  const response = await fetch(
+    `https://github.com/users/${username}/contributions?`
+  );
+
+  const html = await response.text();
+  const $ = await cheerio.load(html);
+  const result = $.html($("svg").toArray());
+  return JSON.stringify(result);
+};
+
 const generateUserContributionDataset = async user => {
   const joinedYear = user.joinedYear;
   const joinedDate = user.joinedDate;
+
+  const svghtml = await getSvgHtml(user.github_username);
   const urls = getScrapUrls(joinedYear, user);
   const responses = await Promise.all(urls.map(url => fetch(url)));
   const htmls = await Promise.all(responses.map(response => response.text()));
@@ -107,7 +120,7 @@ const generateUserContributionDataset = async user => {
 
   //  Don't return the last week or say the current week user is accesing the server
   delete weekWiseDataset[`week-${week_number}`];
-  return weekWiseDataset;
+  return [weekWiseDataset, svghtml];
 };
 
 module.exports = generateUserContributionDataset;
