@@ -9,8 +9,12 @@ const app = express();
 // app.use(morgan("tiny"));
 var whitelist = [
   "https://productive-weekday.netlify.com",
-  "http://localhost:3000"
+  "https://shaurya.now.sh" // for portfolio app!
 ];
+
+if (process.env.NODE_ENV !== "production")
+  whitelist.push("http://localhost:3000");
+console.log(whitelist, process.env.NODE_ENV);
 
 var corsOptions = {
   origin: function(origin, callback) {
@@ -23,7 +27,6 @@ var corsOptions = {
 };
 
 app.use(cors(corsOptions));
-
 app.use(helmet());
 app.use(compress());
 app.use(express.urlencoded({ extended: true }));
@@ -40,9 +43,10 @@ app.get("/user/:user", async (req, res, next) => {
     // console.log(user);
     const userInfo = await getUserInfo(user);
 
-    // 2. Generate User Dataset
-    const dataset = await generateUserContributionDataset(userInfo);
-    res.status(200).json({ userInfo, dataset: dataset || {} });
+    // 2. Generate User Dataset and
+    // 3. get svg html for that contribution chart
+    const [dataset, svghtml] = await generateUserContributionDataset(userInfo);
+    res.status(200).json({ userInfo, dataset: dataset || {}, svghtml });
   } catch (error) {
     next(error);
   }
