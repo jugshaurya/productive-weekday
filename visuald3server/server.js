@@ -13,6 +13,10 @@ var whitelist = [
   "http://localhost:3000"
 ];
 
+if (process.env.NODE_ENV !== "production")
+  whitelist.push("http://localhost:3000");
+console.log(whitelist, process.env.NODE_ENV);
+
 var corsOptions = {
   origin: function(origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
