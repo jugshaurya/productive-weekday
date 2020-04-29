@@ -138,6 +138,7 @@ https://productive-weekday-server.jugshaurya.now.sh
 
  - ReDeploy
     - make changes and check them if working via postman may be.
+    - go to visulad3server folder &
     - now (@cli).
 ```
 
