@@ -9,8 +9,9 @@ const app = express();
 // app.use(morgan("tiny"));
 var whitelist = [
   "https://productive-weekday.netlify.com",
+  "https://productive-weekday.netlify.app",
   "https://shaurya.now.sh", // for portfolio app!
-  "http://localhost:3000"
+  "http://localhost:3000",
 ];
 
 if (process.env.NODE_ENV !== "production")
@@ -18,13 +19,13 @@ if (process.env.NODE_ENV !== "production")
 console.log(whitelist, process.env.NODE_ENV);
 
 var corsOptions = {
-  origin: function(origin, callback) {
+  origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
       callback(new Error("Not allowed by CORS"));
     }
-  }
+  },
 };
 
 app.use(cors(corsOptions));
@@ -72,8 +73,8 @@ app.use((error, req, res, next) => {
   res.send({
     error: {
       status: status,
-      message: error.message || "Internal Server Error"
-    }
+      message: error.message || "Internal Server Error",
+    },
   });
 });
 
