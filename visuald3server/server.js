@@ -28,27 +28,61 @@ var corsOptions = {
   },
 };
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 app.use(helmet());
 app.use(compress());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Utils function
-const getUserInfo = require("./utils/getuserInfo");
-const generateUserContributionDataset = require("./utils/generateUserContributionDataset");
+const getUserInfo = require("./api/getuserInfo");
+const getUserContribDataset = require("./api/getUserContribDataset");
+const getUserContribSvg = require("./api/getUserContribSvg");
 
 app.get("/user/:user", async (req, res, next) => {
   try {
-    // 1. fetch the user created year, name, avatar_url
     const { user } = req.params;
-    // console.log(user);
+    const { requireSvg, requireFull } = req.query;
+
+    // fetch the user created year, name, avatar_url, dates
     const userInfo = await getUserInfo(user);
+
+    if (!requireSvg && !requireFull) {
+      // return only the dataset
+      try {
+        const dataset = await getUserContribDataset(userInfo);
+        return res.status(200).json({ userInfo, dataset: dataset || {} });
+      } catch (error) {
+        next(error);
+      }
+    }
+
+    if (!requireFull) {
+      // return only the contrib-svg
+      try {
+        res.setHeader("Content-Type", "image/svg+xml");
+        const svgData = await getUserContribSvg(userInfo);
+        return res.status(200).send(svgData);
+      } catch (error) {
+        next(error);
+      }
+    }
+
+    // return svg + {commits, issue, pr} percentages + contriubtion's organizations.
 
     // 2. Generate User Dataset and
     // 3. get svg html for that contribution chart
-    const [dataset, svghtml] = await generateUserContributionDataset(userInfo);
-    res.status(200).json({ userInfo, dataset: dataset || {}, svghtml });
+    // const [
+    //   dataset,
+    //   svghtml,
+    //   githubContribsHtml,
+    // ] = await generateUserContributionDataset(userInfo);
+    // if (requireFull === "true") {
+    //   res.set("Content-Type", "text/html");
+    //   return res.status(200).send(githubContribsHtml);
+    // }
+
+    // res.status(200).json({ userInfo, dataset: dataset || {}, svghtml });
   } catch (error) {
     next(error);
   }
