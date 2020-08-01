@@ -35,20 +35,21 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Utils function
-const getUserInfo = require("./api/getuserInfo");
+const getUserInfo = require("./api/getUserInfo");
 const getUserContribDataset = require("./api/getUserContribDataset");
 const getUserContribSvg = require("./api/getUserContribSvg");
+const getGithubActivityOverview = require("./api/getGithubActivityOverview");
 
 app.get("/user/:user", async (req, res, next) => {
   try {
     const { user } = req.params;
-    const { requireSvg, requireFull } = req.query;
-
+    const { requireSvg, requireMore } = req.query;
+    console.log(req.query);
     // fetch the user created year, name, avatar_url, dates
     const userInfo = await getUserInfo(user);
 
-    if (!requireSvg && !requireFull) {
-      // return only the dataset
+    if (!(requireSvg === "true") && !(requireMore === "true")) {
+      // case 1: return only the dataset
       try {
         const dataset = await getUserContribDataset(userInfo);
         return res.status(200).json({ userInfo, dataset: dataset || {} });
@@ -56,33 +57,26 @@ app.get("/user/:user", async (req, res, next) => {
         next(error);
       }
     }
-
-    if (!requireFull) {
-      // return only the contrib-svg
+    if (!(requireMore === "true")) {
+      // case 2 : return only the contrib-svg
       try {
         res.setHeader("Content-Type", "image/svg+xml");
         const svgData = await getUserContribSvg(userInfo);
-        return res.status(200).send(svgData);
+        console.log(svgData);
+        return res.status(200).send(`${svgData}`);
       } catch (error) {
         next(error);
       }
     }
 
-    // return svg + {commits, issue, pr} percentages + contriubtion's organizations.
-
-    // 2. Generate User Dataset and
-    // 3. get svg html for that contribution chart
-    // const [
-    //   dataset,
-    //   svghtml,
-    //   githubContribsHtml,
-    // ] = await generateUserContributionDataset(userInfo);
-    // if (requireFull === "true") {
-    //   res.set("Content-Type", "text/html");
-    //   return res.status(200).send(githubContribsHtml);
-    // }
-
-    // res.status(200).json({ userInfo, dataset: dataset || {}, svghtml });
+    console.log("ok");
+    // case 3: return more({commits, issue, pr} percentages + contriubtion's organizations + Activity-overview).
+    try {
+      const data = await getGithubActivityOverview(userInfo);
+      return res.status(200).json({ data });
+    } catch (error) {
+      next(error);
+    }
   } catch (error) {
     next(error);
   }
