@@ -5,18 +5,21 @@ const compress = require("compression");
 const morgan = require("morgan");
 const app = express();
 
+// Utils function
+const getUserInfo = require("./api/getUserInfo");
+const getUserContribDataset = require("./api/getUserContribDataset");
+const getUserContribSvg = require("./api/getUserContribSvg");
+
 // Uncomment it out if in development mode
 // app.use(morgan("tiny"));
 var whitelist = [
   "https://productive-weekday.netlify.com",
   "https://productive-weekday.netlify.app",
-  "https://shaurya.now.sh", // for portfolio app!
-  "http://localhost:3000",
+  "https://shaurya.old.now.sh", // for old react based portfolio app!
+  "https://shaurya.now.sh", // for new gatsby-portfolio app!
+  "http://localhost:3000", // for react apps
+  "http://localhost:8000", // for gatsby app
 ];
-
-if (process.env.NODE_ENV !== "production")
-  whitelist.push("http://localhost:3000");
-console.log(whitelist, process.env.NODE_ENV);
 
 var corsOptions = {
   origin: function (origin, callback) {
@@ -28,57 +31,36 @@ var corsOptions = {
   },
 };
 
-// app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 app.use(helmet());
 app.use(compress());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Utils function
-const getUserInfo = require("./api/getUserInfo");
-const getUserContribDataset = require("./api/getUserContribDataset");
-const getUserContribSvg = require("./api/getUserContribSvg");
-const getGithubActivityOverview = require("./api/getGithubActivityOverview");
-
 app.get("/user/:user", async (req, res, next) => {
-  try {
-    const { user } = req.params;
-    const { requireSvg, requireMore } = req.query;
-    console.log(req.query);
-    // fetch the user created year, name, avatar_url, dates
-    const userInfo = await getUserInfo(user);
+  const { user } = req.params;
+  const { requireSvg } = req.query;
 
-    if (!(requireSvg === "true") && !(requireMore === "true")) {
-      // case 1: return only the dataset
-      try {
-        const dataset = await getUserContribDataset(userInfo);
-        return res.status(200).json({ userInfo, dataset: dataset || {} });
-      } catch (error) {
-        next(error);
-      }
-    }
-    if (!(requireMore === "true")) {
-      // case 2 : return only the contrib-svg
-      try {
-        res.setHeader("Content-Type", "image/svg+xml");
-        const svgData = await getUserContribSvg(userInfo);
-        console.log(svgData);
-        return res.status(200).send(`${svgData}`);
-      } catch (error) {
-        next(error);
-      }
-    }
+  // fetch the user created year, name, avatar_url, dates
+  const userInfo = await getUserInfo(user);
 
-    console.log("ok");
-    // case 3: return more({commits, issue, pr} percentages + contriubtion's organizations + Activity-overview).
+  if (requireSvg === "true") {
+    // case: return only the contrib-svg
     try {
-      const data = await getGithubActivityOverview(userInfo);
-      return res.status(200).json({ data });
+      res.setHeader("Content-Type", "image/svg+xml");
+      const svgData = await getUserContribSvg(userInfo);
+      return res.status(200).send(`${svgData}`);
     } catch (error) {
       next(error);
     }
-  } catch (error) {
-    next(error);
+  } else {
+    // case: return only the dataset
+    try {
+      const dataset = await getUserContribDataset(userInfo);
+      return res.status(200).json({ userInfo, dataset: dataset || {} });
+    } catch (error) {
+      next(error);
+    }
   }
 });
 
