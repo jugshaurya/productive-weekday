@@ -5,18 +5,21 @@ const compress = require("compression");
 const morgan = require("morgan");
 const app = express();
 
+// Utils function
+const getUserInfo = require("./api/getUserInfo");
+const getUserContribDataset = require("./api/getUserContribDataset");
+const getUserContribSvg = require("./api/getUserContribSvg");
+
 // Uncomment it out if in development mode
 // app.use(morgan("tiny"));
 var whitelist = [
   "https://productive-weekday.netlify.com",
   "https://productive-weekday.netlify.app",
-  "https://shaurya.now.sh", // for portfolio app!
-  "http://localhost:3000",
+  "https://shaurya.old.now.sh", // for old react based portfolio app!
+  "https://shaurya.now.sh", // for new gatsby-portfolio app!
+  "http://localhost:3000", // for react apps
+  "http://localhost:8000", // for gatsby app
 ];
-
-if (process.env.NODE_ENV !== "production")
-  whitelist.push("http://localhost:3000");
-console.log(whitelist, process.env.NODE_ENV);
 
 var corsOptions = {
   origin: function (origin, callback) {
@@ -34,23 +37,30 @@ app.use(compress());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Utils function
-const getUserInfo = require("./utils/getuserInfo");
-const generateUserContributionDataset = require("./utils/generateUserContributionDataset");
-
 app.get("/user/:user", async (req, res, next) => {
-  try {
-    // 1. fetch the user created year, name, avatar_url
-    const { user } = req.params;
-    // console.log(user);
-    const userInfo = await getUserInfo(user);
+  const { user } = req.params;
+  const { requireSvg } = req.query;
 
-    // 2. Generate User Dataset and
-    // 3. get svg html for that contribution chart
-    const [dataset, svghtml] = await generateUserContributionDataset(userInfo);
-    res.status(200).json({ userInfo, dataset: dataset || {}, svghtml });
-  } catch (error) {
-    next(error);
+  // fetch the user created year, name, avatar_url, dates
+  const userInfo = await getUserInfo(user);
+
+  if (requireSvg === "true") {
+    // case: return only the contrib-svg
+    try {
+      res.setHeader("Content-Type", "image/svg+xml");
+      const svgData = await getUserContribSvg(userInfo);
+      return res.status(200).send(`${svgData}`);
+    } catch (error) {
+      next(error);
+    }
+  } else {
+    // case: return only the dataset
+    try {
+      const dataset = await getUserContribDataset(userInfo);
+      return res.status(200).json({ userInfo, dataset: dataset || {} });
+    } catch (error) {
+      next(error);
+    }
   }
 });
 
