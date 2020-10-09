@@ -19,6 +19,7 @@ var whitelist = [
   "https://shaurya.now.sh", // for new gatsby-portfolio app!
   "http://localhost:3000", // for react apps
   "http://localhost:8000", // for gatsby app
+  "https://www.priyanshsinghal.com", // for requested User - Priyansh Singhal :) - priyansh18
 ];
 
 var corsOptions = {
