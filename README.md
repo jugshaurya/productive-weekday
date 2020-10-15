@@ -1,4 +1,6 @@
-## Productive-Weekday ([Visit Now](https://productive-weekday.netlify.com/))
+## Productive-Weekday ([Visit Now](https://productive-weekday.netlify.com))
+
+## Productive-Weekday Server ([Visit Now](https://productive-weekday-server.jugshaurya.now.sh))
 
 ### Idea :octocat:
 
@@ -14,6 +16,22 @@ but we are goiing to make it using code!!
 ## Peek a boo!:
 
 ![](app.gif)
+
+## Implemented Features :
+
+- Get User Contribution Dataset
+
+  - visit : \${SERVER_URL}/user/{username}
+  - example: https://productive-weekday-server.jugshaurya.now.sh/user/jugshaurya
+  - output:
+    ![](dataset_output.png)
+
+- Get User Contribution SVG
+
+  - visit : \${SERVER_URL}/user/{username}?requireSvg=true
+  - example: https://productive-weekday-server.jugshaurya.now.sh/user/jugshaurya?requireSvg=true
+  - output:
+    ![](usersvg.png)
 
 ### Goal In Mind
 
