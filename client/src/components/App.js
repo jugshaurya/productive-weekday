@@ -15,30 +15,30 @@ class App extends React.Component {
     dataset: DATASET,
     fetchingError: null,
     isFetching: false,
-    replayKey: true
+    replayKey: true,
   };
 
-  handleChange = e => {
+  handleChange = (e) => {
     this.setState({ fetchingError: null, [e.target.name]: e.target.value });
   };
 
-  handleFetchingUserDataset = e => {
+  handleFetchingUserDataset = (e) => {
     e.preventDefault();
     const { username } = this.state;
-    const SERVER_URL = "https://productive-weekday-server.jugshaurya.now.sh";
+    const SERVER_URL = "https://productive-weekday-server.now.sh";
     // Run if want to run via localhost server code; in development mode
     // const SERVER_URL = "http://localhost:8080";
     if (!username)
       return this.setState({
-        fetchingError: { message: "Enter a Github Username" }
+        fetchingError: { message: "Enter a Github Username" },
       });
 
     // Fetching start
     this.setState({ fetchingError: null, dataset: null, isFetching: true });
     // Fetching Pending + Fetching Resolved/Rejected
     fetch(`${SERVER_URL}/user/${username}`)
-      .then(response => response.json())
-      .then(dataset => {
+      .then((response) => response.json())
+      .then((dataset) => {
         if (dataset.error && dataset.error.status >= 400) {
           throw new Error(dataset.error.message);
         }
@@ -46,15 +46,15 @@ class App extends React.Component {
           dataset,
           fetchingError: null,
           isFetching: false,
-          username: ""
+          username: "",
         });
       })
-      .catch(error => {
+      .catch((error) => {
         this.setState({
           dataset: null,
           fetchingError: error,
           isFetching: false,
-          username: ""
+          username: "",
         });
       });
   };
@@ -64,13 +64,7 @@ class App extends React.Component {
   };
 
   render() {
-    const {
-      username,
-      dataset,
-      fetchingError,
-      isFetching,
-      replayKey
-    } = this.state;
+    const { username, dataset, fetchingError, isFetching, replayKey } = this.state;
 
     if (fetchingError) {
       setTimeout(() => {
@@ -78,7 +72,7 @@ class App extends React.Component {
           username: "",
           fetchingError: null,
           isFetching: false,
-          replayKey: true
+          replayKey: true,
         });
       }, 2000);
     }
@@ -96,8 +90,7 @@ class App extends React.Component {
           </div>
           <MainSVG />
           <h3>
-            Find out the most Productive <span>Weekday</span> of your Github
-            World!
+            Find out the most Productive <span>Weekday</span> of your Github World!
           </h3>
           {isFetching ? (
             <LoadingSVG className="loading-svg" />
