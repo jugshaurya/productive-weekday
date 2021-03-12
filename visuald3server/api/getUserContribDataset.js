@@ -43,7 +43,6 @@ const getWeeklyData = (dates) => {
 const getUserContribDataset = async (user) => {
   // retrieve all URLs and their HTML.
   const urls = getContribMapURLs(user);
-  console.log(urls);
   const responses = await Promise.all(urls.map((url) => fetch(url)));
   const contribMapHTMLs = await Promise.all(
     responses.map((response) => response.text())
