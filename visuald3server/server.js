@@ -32,11 +32,11 @@ var corsOptions = {
   },
 };
 
-app.use(cors(corsOptions));
 app.use(helmet());
 app.use(compress());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cors(corsOptions));
 
 app.get("/user/:user", async (req, res, next) => {
   const { user } = req.params;

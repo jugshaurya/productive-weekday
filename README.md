@@ -1,6 +1,6 @@
 ## Productive-Weekday ([Visit Now](https://productive-weekday.netlify.com))
 
-## Productive-Weekday Server ([Visit Now](https://productive-weekday-server.jugshaurya.now.sh))
+## Productive-Weekday Server ([Visit Now](https://productive-weekday-server.now.sh))
 
 ### Idea :octocat:
 
@@ -22,14 +22,14 @@ but we are goiing to make it using code!!
 - Get User Contribution Dataset
 
   - visit : \${SERVER_URL}/user/{username}
-  - example: https://productive-weekday-server.jugshaurya.now.sh/user/jugshaurya
+  - example: https://productive-weekday-server.now.sh/user/jugshaurya
   - output:
     ![](dataset_output.png)
 
 - Get User Contribution SVG
 
   - visit : \${SERVER_URL}/user/{username}?requireSvg=true
-  - example: https://productive-weekday-server.jugshaurya.now.sh/user/jugshaurya?requireSvg=true
+  - example: https://productive-weekday-server.now.sh/user/jugshaurya?requireSvg=true
   - output:
     ![](usersvg.png)
 
@@ -114,7 +114,7 @@ cd visuald3server && npm i && npm run dev(other tab)
 #### Deployment
 
 - add a now.json file
-- [server](https://productive-weekday-server.jugshaurya.now.sh)
+- [server](https://productive-weekday-server.now.sh)
 - Add a bulid command and directory to deploy to netlify.
 
 ### What is D3 ?
@@ -152,7 +152,7 @@ cd visuald3server && npm i && npm run dev(other tab)
 #### Server
 
 ```
-https://productive-weekday-server.jugshaurya.now.sh
+https://productive-weekday-server.now.sh
 
  - ReDeploy
     - make changes and check them if working via postman may be.
