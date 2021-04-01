@@ -20,6 +20,8 @@ var whitelist = [
   "http://localhost:3000", // for react apps
   "http://localhost:8000", // for gatsby app
   "https://www.priyanshsinghal.com", // for requested User - Priyansh Singhal :) - priyansh18
+  "https://showcase-jugshaurya.vercel.app", // new portfolio website
+  "https://showcase-three.vercel.app", // new portfolio website
 ];
 
 var corsOptions = {

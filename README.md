@@ -158,6 +158,7 @@ https://productive-weekday-server.now.sh
     - make changes and check them if working via postman may be.
     - go to visulad3server folder &
     - now (@cli).
+    - now alias press[ctrl+v] https://productive-weekday-server.now.sh
     - now --prod // deploy to production
 ```
 
@@ -168,5 +169,6 @@ https://productive-weekday.netlify.com/
 
  - ReDeploy
     - make changes and push to github.
-    - make a PR to deploy branch to redeploy at netlify automatically.
+    - Go to netlify
+    - and deploy there.
 ```
