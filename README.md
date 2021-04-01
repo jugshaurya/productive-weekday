@@ -172,3 +172,7 @@ https://productive-weekday.netlify.com/
     - Go to netlify
     - and deploy there.
 ```
+
+## Shaurya Specific
+
+- [x] get my stats of shaurya for gatsby portfolio app to hide access token.

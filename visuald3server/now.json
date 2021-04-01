@@ -12,6 +12,11 @@
       "src": "/user/(.*)",
       "dest": "/server.js",
       "methods": ["GET"]
+    },
+    {
+      "src": "/mystats",
+      "dest": "/server.js",
+      "methods": ["GET"]
     }
   ]
 }
