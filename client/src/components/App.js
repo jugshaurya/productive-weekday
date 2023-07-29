@@ -25,7 +25,7 @@ class App extends React.Component {
   handleFetchingUserDataset = (e) => {
     e.preventDefault();
     const { username } = this.state;
-    const SERVER_URL = "https://productive-weekday-server.now.sh";
+    const SERVER_URL = "https://productive-weekday-server.vercel.app";
     // Run if want to run via localhost server code; in development mode
     // const SERVER_URL = "http://localhost:8080";
     if (!username)
