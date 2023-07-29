@@ -59,16 +59,17 @@ app.get("/user/:user", async (req, res, next) => {
   // fetch the user created year, name, avatar_url, dates
   const userInfo = await getUserInfo(user);
 
-  if (requireSvg === "true") {
-    // case: return only the contrib-svg
-    try {
-      res.setHeader("Content-Type", "image/svg+xml");
-      const svgData = await getUserContribSvg(userInfo);
-      return res.status(200).send(`${svgData}`);
-    } catch (error) {
-      next(error);
-    }
-  } else {
+  // New: handle on front-end
+  // if (requireSvg === "true") {
+  //   // case: return only the contrib-svg 
+  //   try {
+  //     res.setHeader("Content-Type", "image/svg+xml");
+  //     const svgData = await getUserContribSvg(userInfo);
+  //     return res.status(200).send(`${svgData}`);
+  //   } catch (error) {
+  //     next(error);
+  //   }
+  // } else {
     // case: return only the dataset
     try {
       const dataset = await getUserContribDataset(userInfo);
@@ -76,7 +77,7 @@ app.get("/user/:user", async (req, res, next) => {
     } catch (error) {
       next(error);
     }
-  }
+  // }
 });
 
 app.get("/", (req, res) => {

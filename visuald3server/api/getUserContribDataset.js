@@ -77,7 +77,11 @@ const getUserContribDataset = async (user) => {
     return acc;
   }, []);
 
-  const dataset = getWeeklyData(flattenDates);
+  const sortedAsc = flattenDates.sort(
+    (objA, objB) => Number(new Date(objA.date)) - Number(new Date(objB.date)),
+  );
+
+  const dataset = getWeeklyData(sortedAsc);
   return dataset;
 };
 

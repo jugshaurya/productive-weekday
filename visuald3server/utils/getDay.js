@@ -1,5 +1,6 @@
-const getDay = i => {
-  const day = i % 7;
+const getDay = date => {
+  const dateDate = new Date(date);
+  const day = dateDate.getDay();
   switch (day) {
     case 0:
       return "Sunday";
