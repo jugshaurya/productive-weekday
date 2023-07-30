@@ -10,6 +10,7 @@ const getUserInfo = require("./api/getUserInfo");
 const getUserContribDataset = require("./api/getUserContribDataset");
 const getUserContribSvg = require("./api/getUserContribSvg");
 const fetchGithubStats = require("./api/getGithubStats");
+
 // Uncomment it out if in development mode
 // app.use(morgan("tiny"));
 var whitelist = [
@@ -23,8 +24,7 @@ var whitelist = [
   "https://www.priyanshsinghal.com", // for requested User - Priyansh Singhal :) - priyansh18
   "https://showcase-jugshaurya.vercel.app", // new portfolio website
   "https://showcase-three.vercel.app", // new portfolio website
-  "https://jugshaurya.vercel.app/", // new portfolio website
-  
+  "https://jugshaurya.vercel.app", // new portfolio website
 ];
 
 var corsOptions = {
