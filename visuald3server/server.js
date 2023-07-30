@@ -23,6 +23,7 @@ var whitelist = [
   "https://www.priyanshsinghal.com", // for requested User - Priyansh Singhal :) - priyansh18
   "https://showcase-jugshaurya.vercel.app", // new portfolio website
   "https://showcase-three.vercel.app", // new portfolio website
+  "https://jugshaurya.vercel.app/", // new portfolio website
   
 ];
 
