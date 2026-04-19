@@ -10,11 +10,11 @@ class ShowRacebarGraph extends Component {
     weekData: [],
     dataset: this.props.dataset.dataset,
     number_of_weeks: Object.keys(this.props.dataset.dataset).length,
-    userInfo: this.props.dataset.userInfo
+    finished: false,
   };
 
-  // Updates the weekly data evry 2 second
   componentDidMount() {
+    const speed = this.props.speed || 400;
     let lock = true;
     this.intervalId = setInterval(() => {
       if (lock) {
@@ -23,201 +23,103 @@ class ShowRacebarGraph extends Component {
         this.setState(
           {
             week_number: week_number + 1,
-            weekData: this.addContribCounts(
-              weekData,
-              dataset[`week-${week_number + 1}`]
-            )
+            weekData: this.addContribCounts(weekData, dataset[`week-${week_number + 1}`]),
           },
           () => {
-            // release the lock when state has updated
             lock = true;
             if (week_number >= number_of_weeks - 1) {
               clearInterval(this.intervalId);
+              this.setState({ finished: true });
             }
           }
         );
       }
-    }, 700);
+    }, speed);
   }
 
-  addContribCounts = (prevData, newData) => {
-    //  Corner Case
-    if (prevData.length === 0) {
-      return newData;
-    }
-
-    const result = newData.map((data, i) => ({
-      ...data,
-
-      contribCount: data.contribCount + prevData[i].contribCount
-    }));
-
-    return result;
+  addContribCounts = (prev, next) => {
+    if (prev.length === 0) return next;
+    return next.map((d, i) => ({ ...d, contribCount: d.contribCount + prev[i].contribCount }));
   };
 
   componentWillUnmount() {
     clearInterval(this.intervalId);
   }
 
-  refCallback = element => {
-    if (element) {
-      const elementRect = element.getBoundingClientRect();
-      this.setState({
-        svgHeight: elementRect.height,
-        svgWidth: elementRect.width
-      });
+  refCallback = (el) => {
+    if (el) {
+      const r = el.getBoundingClientRect();
+      this.setState({ svgHeight: r.height, svgWidth: r.width });
     }
   };
 
-  showGrid() {
-    return (
-      <>
-        <defs>
-          <pattern
-            id="smallGrid"
-            width="5"
-            height="5"
-            patternUnits="userSpaceOnUse"
-          >
-            <path
-              d="M 10 0 L 0 0 0 10"
-              fill="none"
-              stroke="gray"
-              strokeWidth="1"
-            />
-          </pattern>
-          <pattern
-            id="medSmallGrid"
-            width="10"
-            height="10"
-            patternUnits="userSpaceOnUse"
-          >
-            <rect width="100" height="100" fill="url(#smallGrid)" />
-            <path
-              d="M 10 0 L 0 0 0 10"
-              fill="none"
-              stroke="black"
-              strokeWidth="1"
-            />
-          </pattern>
-          <pattern
-            id="medLargeGrid"
-            width="50"
-            height="50"
-            patternUnits="userSpaceOnUse"
-          >
-            <rect width="100" height="100" fill="url(#medSmallGrid)" />
-            <path
-              d="M 10 0 L 0 0 0 10"
-              fill="none"
-              stroke="violet"
-              strokeWidth="1"
-            />
-          </pattern>
-          <pattern
-            id="largeGrid"
-            width="100"
-            height="100"
-            patternUnits="userSpaceOnUse"
-          >
-            <rect width="100" height="100" fill="url(#medLargeGrid)" />
-            <path
-              d="M 100 0 L 0 0 0 100"
-              fill="none"
-              stroke="red"
-              strokeWidth="1"
-            />
-          </pattern>
-        </defs>
-
-        <rect
-          className="defs-rect"
-          width="100%"
-          height="100%"
-          fill="url(#largeGrid)"
-        />
-      </>
-    );
-  }
   render() {
-    const {
-      svgHeight,
-      svgWidth,
-      weekData,
-      week_number,
-      dataset,
-      userInfo
-    } = this.state;
-    const sortedWeekData = weekData.sort((x, y) => {
-      if (x.contribCount < y.contribCount) return 1;
-      if (x.contribCount > y.contribCount) return -1;
-      return 0;
-    });
+    const { svgHeight, svgWidth, weekData, week_number, dataset, number_of_weeks, finished } = this.state;
+    const speed = this.props.speed || 400;
 
-    const yAxis = d3
-      .scaleBand()
-      .domain(sortedWeekData.map(data => data.day))
-      .range([0, svgHeight - 20]) // -20 for svg being inside parent box
-      .padding(0.4);
+    const sorted = [...weekData].sort((a, b) => b.contribCount - a.contribCount);
 
-    const rightPadding = 50;
-    // ScaleLinear().domain() takes the min and max values as domain
-    // since we will be taking sum over the weeks and assuming contribCount value can be atmax 100
-    // we can take min =0 and max = #weeks * 100
-    // https://github.com/d3/d3-scale/blob/master/README.md#continuous-scales
-    const xAxis = d3
-      .scaleLinear()
-      .domain([0, d3.max(weekData, data => data.contribCount) + rightPadding])
-      .range([0, svgWidth]);
+    const yAxis = d3.scaleBand()
+      .domain(sorted.map(d => d.day))
+      .range([16, svgHeight - 44])
+      .padding(0.12);
+
+    const xAxis = d3.scaleLinear()
+      .domain([0, d3.max(weekData, d => d.contribCount) + 80])
+      .range([0, svgWidth * 0.8]);
+
+    const progress = number_of_weeks > 0 ? Math.min(week_number / number_of_weeks, 1) : 0;
 
     return (
-      <>
-        <article className="race-bar-graph">
-          <svg ref={this.refCallback}>
-            {this.showGrid()}
-            {sortedWeekData.map(data => (
-              <SingleBar
-                key={data.day}
-                data={data}
-                y={yAxis(data.day)}
-                // Initial length is shown to be 50
-                barWidth={50 + xAxis(data.contribCount)}
-                barHeight={yAxis.bandwidth()}
-              />
-            ))}
-            <g className="week-number">
-              <text x={svgWidth - 100} y={svgHeight - 60}>
-                week-{week_number}
-              </text>
-              <text className="date" x={svgWidth - 100} y={svgHeight - 30}>
-                {dataset[`week-${week_number + 1}`]
-                  ? dataset[`week-${week_number + 1}`][6].date
-                  : dataset[`week-${week_number}`][6].date}
-              </text>
-            </g>
-          </svg>
-        </article>
+      <div className="race-wrap">
+        {/* Progress */}
+        <div className="race-progress">
+          <div className="race-progress-fill" style={{ width: `${progress * 100}%` }} />
+        </div>
 
-        <article className="who-won">
-          {userInfo.avatar_url ? (
-            <div className="user-info">
-              <img src={userInfo.avatar_url} alt="username" />
-              {userInfo.github_username}
-            </div>
-          ) : null}
-          <div>
-            <h4>
-              Most Productive Weekday:{" "}
-              <span className="won-day">
-                {weekData.length === 0 ? "Sun" : weekData[0].day}{" "}
-              </span>
-            </h4>
-            <button type="button" onClick={this.props.onReplay}>
-              Replay
-            </button>
+        <svg ref={this.refCallback} className="race-svg">
+          {sorted.map(d => (
+            <SingleBar
+              key={d.day}
+              data={d}
+              y={yAxis(d.day)}
+              barWidth={80 + xAxis(d.contribCount)}
+              barHeight={yAxis.bandwidth()}
+              speed={speed}
+            />
+          ))}
+
+          {/* Week watermark */}
+          <text
+            x={svgWidth - 90}
+            y={svgHeight - 50}
+            className="wk-watermark"
+          >
+            {week_number}
+          </text>
+          <text
+            x={svgWidth - 90}
+            y={svgHeight - 20}
+            className="wk-date"
+          >
+            {dataset[`week-${week_number + 1}`]
+              ? dataset[`week-${week_number + 1}`][6].date
+              : dataset[`week-${week_number}`]
+              ? dataset[`week-${week_number}`][6].date
+              : ""}
+          </text>
+        </svg>
+
+        {/* Winner */}
+        {finished && sorted.length > 0 && (
+          <div className="winner">
+            <div className="winner-glow" />
+            <span className="winner-label">Winner</span>
+            <span className="winner-day">{sorted[0].day}</span>
+            <span className="winner-count">{sorted[0].contribCount} total contributions</span>
           </div>
-        </article>
-      </>
+        )}
+      </div>
     );
   }
 }

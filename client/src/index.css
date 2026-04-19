@@ -1,41 +1,51 @@
-html {
-  margin: 0;
-  padding: 0;
-}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: "Fira Sans", sans-serif;
-  font-size: 1.2em;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+:root {
+  --bg: #000000;
+  --card: rgba(255, 255, 255, 0.04);
+  --card-border: rgba(255, 255, 255, 0.07);
+  --card-hover: rgba(255, 255, 255, 0.08);
+  --text-primary: #f5f5f7;
+  --text-secondary: rgba(255, 255, 255, 0.6);
+  --text-tertiary: rgba(255, 255, 255, 0.35);
+  --accent: #0a84ff;
+  --accent-soft: rgba(10, 132, 255, 0.12);
+  --purple: #bf5af2;
+  --green: #30d158;
+  --orange: #ff9f0a;
+  --pink: #ff375f;
+  --cyan: #64d2ff;
+  --yellow: #ffd60a;
+  --radius: 16px;
+  --radius-sm: 10px;
+  --max-w: 1120px;
 }
 
-/* width */
-*::-webkit-scrollbar {
-  width: 5px;
+html, body, #root {
+  height: 100%;
 }
 
-/* Track */
-*::-webkit-scrollbar-track {
-  background: #aaa;
+body {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--bg);
+  color: var(--text-primary);
+  font-size: 16px;
+  line-height: 1.55;
+  overflow-x: hidden;
 }
 
-*::-webkit-scrollbar-thumb {
-  background: #2498db;
-  border-radius: 25px;
+::selection {
+  background: rgba(10, 132, 255, 0.3);
 }
 
-*::-webkit-scrollbar-thumb:hover {
-  background: #fff;
-}
+*::-webkit-scrollbar { width: 0; }
