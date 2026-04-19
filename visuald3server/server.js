@@ -8,7 +8,6 @@ const app = express();
 // Utils function
 const getUserInfo = require("./api/getUserInfo");
 const getUserContribDataset = require("./api/getUserContribDataset");
-const getUserContribSvg = require("./api/getUserContribSvg");
 const fetchGithubStats = require("./api/getGithubStats");
 
 // Uncomment it out if in development mode
@@ -29,7 +28,7 @@ var whitelist = [
 
 var corsOptions = {
   origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
+    if (!origin || whitelist.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
       callback(new Error("Not allowed by CORS"));
@@ -56,29 +55,20 @@ app.get("/mystats", async (req, res, next) => {
 
 app.get("/user/:user", async (req, res, next) => {
   const { user } = req.params;
-  const { requireSvg } = req.query;
 
-  // fetch the user created year, name, avatar_url, dates
-  const userInfo = await getUserInfo(user);
+  let userInfo;
+  try {
+    userInfo = await getUserInfo(user);
+  } catch (error) {
+    return next(error);
+  }
 
-  // New: handle on front-end
-  // if (requireSvg === "true") {
-  //   // case: return only the contrib-svg 
-  //   try {
-  //     res.setHeader("Content-Type", "image/svg+xml");
-  //     const svgData = await getUserContribSvg(userInfo);
-  //     return res.status(200).send(`${svgData}`);
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // } else {
-    // case: return only the dataset
-    try {
-      const dataset = await getUserContribDataset(userInfo);
-      return res.status(200).json({ userInfo, dataset: dataset || {} });
-    } catch (error) {
-      next(error);
-    }
+  try {
+    const dataset = await getUserContribDataset(userInfo);
+    return res.status(200).json({ userInfo, dataset: dataset || {} });
+  } catch (error) {
+    next(error);
+  }
   // }
 });
 
